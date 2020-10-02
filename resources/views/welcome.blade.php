@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Hello My Site
+                    Hello My Google Cloud Run
                 </div>
 
                 <div class="links">
