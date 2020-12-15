@@ -1,8 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.index')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+ <!-- Page Content -->
+ <div id="content">
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+                <span>Toggle Sidebar</span>
+            </button>
+
+        </div>
+    </nav>
+<div class="container-fluid">
+    <div class="row ">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
@@ -20,4 +32,6 @@
         </div>
     </div>
 </div>
+   <!-- We'll fill this with dummy content -->
+   </div>
 @endsection
