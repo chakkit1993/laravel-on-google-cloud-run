@@ -10,7 +10,7 @@
         <ul class="list-unstyled components">
             <p>Dummy Heading</p>
             <li>
-                <a href="#" >Dashboard</a>
+                <a href="{{route('admin')}}" >Dashboard</a>
             </li>
 
             <li>

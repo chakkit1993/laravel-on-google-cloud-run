@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.master')
 
 @section('content')
  <!-- Page Content -->
@@ -15,6 +15,7 @@
     </nav>
 <div class="container">
 <div id="app">
+  
     <div class="d-flex justify-content-end mb-2">
     </div>
     <div class="card card-default">

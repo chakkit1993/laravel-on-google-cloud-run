@@ -87,3 +87,10 @@
 ## Step 7 Deploying to Cloud Run
     
     gcloud run deploy --image gcr.io/PROJECT-ID/helloworld --platform managed
+
+
+    update 16/12/2020  Admin LTE
+https://adminlte.io/docs/3.0/
+    yarn add admin-lte@^3.0
+ https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers   
+    yarn add @fortawesome/fontawesome-free

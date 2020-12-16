@@ -6,7 +6,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     /* background: #fafafa; */
-    
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     background-image: url("/images/party-blue-night-blur-gradation-1920x1080.jpg");
     /* background-image: url('https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80'); */
 }
