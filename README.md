@@ -88,9 +88,10 @@
     
     gcloud run deploy --image gcr.io/PROJECT-ID/helloworld --platform managed
 
-
+    
+## Step 8 Add Admin LTE
     update 16/12/2020  Admin LTE
-https://adminlte.io/docs/3.0/
+    https://adminlte.io/docs/3.0/
     yarn add admin-lte@^3.0
- https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers   
+    https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers   
     yarn add @fortawesome/fontawesome-free
