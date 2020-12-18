@@ -7,13 +7,13 @@
                     <div class="card">
                         <div class="card-header">
                             <span class="h4">Players List</span>
-                            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addUserModal">
+                            <!-- <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addUserModal">
                                 <i class="fa fa-plus"><b> Add New</b></i>
-                            </button>
+                            </button> -->
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="brandDatatable" class="table table-bordered table-striped">
+                            <table id="example" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>Sl No.</th>
@@ -84,6 +84,6 @@
             </div>
         </section>
     </div>
-    @include('admin.players.addPlayer')
+ 
 
     @endsection

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTournamentRequest;
+use App\Http\Requests\UpdateTournamentRequest;
+use App\Model\Division;
+use App\Model\Tournament;
 use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
@@ -13,7 +17,8 @@ class TournamentsController extends Controller
      */
     public function index()
     {
-        return view('admin.tournaments.index');
+
+        return view('admin.tournaments.index')->with('tournaments', Tournament::all()->sortByDesc('id'));
     }
 
     /**
@@ -23,7 +28,7 @@ class TournamentsController extends Controller
      */
     public function create()
     {
-        return view('admin.tournaments.create');
+        //return view('tournaments.index');
     }
 
     /**
@@ -32,9 +37,25 @@ class TournamentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTournamentRequest $request)
     {
-        //
+      //  dd($request);
+         // insert data to db
+         $image = 'image_path';//$request->image->store('posts');
+         $ldate = date('Y-m-d H:i:s');
+         Tournament::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'address' => $request->address,
+            'date' => $request->date,
+            'img' => $image,
+            'create_date' => $ldate,
+            'create_by' => auth()->user()->name
+        ]);
+
+        Session()->flash('success','บันทึกข้อมูลสำเร็จ');
+       
+        return redirect(route('tournaments.index'));
     }
 
     /**
@@ -43,10 +64,30 @@ class TournamentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tournament $tournament)
     {
-        //
+        
+       
+        return view('admin.tournaments.details')
+        ->with('tournament',$tournament)
+        ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+       
     }
+
+          /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function details(Tournament $tournament)
+    {
+        // dd($tournament);
+        return response()->json($tournament);
+        
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -54,9 +95,9 @@ class TournamentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tournament $tournament)
     {
-        //
+        //return view('tournament.create')->with('tournament',$tournament);
     }
 
     /**
@@ -66,9 +107,25 @@ class TournamentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTournamentRequest $request,Tournament $tournament)
     {
-        //
+        //dd($request->all());
+            $tournament->update(([
+                'name'=>$request->name,
+                'address'=>$request->address,
+                'date'=>$request->date,
+                'description'=>$request->description
+            ]));
+    
+            Session()->flash('success','แก้ไขข้อมูลสำเร็จ');
+           
+            //return redirect(route('tournaments.index'));
+            return view('admin.tournaments.details')
+                 ->with('tournament',$tournament)
+                 ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+
+
+        
     }
 
     /**
@@ -77,8 +134,13 @@ class TournamentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tournament $tournament)
     {
-        //
+        //$tournament->tags()->detach($tournament->post_id);
+        $tournament->delete();
+        //$tournament->deleteImage();
+        Session()->flash('success', 'ลบข้อมูลสำเร็จ');
+
+        return redirect(route('tournaments.index'));
     }
 }

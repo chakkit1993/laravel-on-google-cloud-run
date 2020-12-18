@@ -13,6 +13,8 @@ try {
     require('bootstrap');
     require('admin-lte');
     require('datatables.net-bs4');
+    require('sweetalert2');
+
     
 } catch (e) {}
 
@@ -25,7 +27,8 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
+// CommonJS
+window.swal = require('sweetalert2')
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

@@ -19,6 +19,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/card-tour.css') }}" rel="stylesheet">
+
+<!-- <script src="sweetalert2/dist/sweetalert2.all.min.js"></script> -->
+<!-- <link rel="stylesheet" href="{{ asset('css/bootstrap-select.css') }}" > -->
+
+<!-- <link href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"> -->
+
+
+
+
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -63,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="/images/logo.png"  alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -79,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="/images/logo.png"  alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -95,7 +107,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="/images/logo.png"  alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -177,6 +189,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
+        @if(Session()->has('success'))
+                <div class="alert alert-success">
+                    {{Session()->get('success')}}
+                </div>
+                @endif
+                @if(Session()->has('error'))
+                <div class="alert alert-danger">
+                    {{Session()->get('error')}}
+                </div>
+                @endif
+
+                
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -217,12 +241,85 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 <script src="/js/app.js"></script>
-
+<script src="/js/sweetalert.js"></script>
+<!-- <script src="{{ asset('js/sweetalert.js') }}" ></script> -->
 <script>
-    $(document).ready(function () {
-        $('table').DataTable();
-    });
+    // $(document).ready(function () {
+    //     $('#example').DataTable();
+    // });
+
+    // $(document).ready(function () {
+    //     $('#example2').DataTable();
+    // });
+
+//     $(document).ready(function() {
+//     var table = $('#example').DataTable( {
+//         lengthChange: false,
+//         buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+//     } );
+ 
+//     table.buttons().container()
+//         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+// } );
+
+
 </script>
+
+   
+<script type="text/javascript" >
+             
+             $(document).ready( function () {
+     
+               $(document).on('click', '.editTournaments', function(e){
+                   $('#editTournamentsModal').modal('show');
+                   e.preventDefault();
+     
+                   var id = $(this).attr('id');
+                   $.ajax({
+                     
+                       url: "{{url('admin/tournaments/details')}}/"+id,
+                       method: "GET",
+                       success: function(data){
+                           console.log(data);
+                          // alert("Hello! Name   "  + data.name + "  GG"  );
+                          $('#e_name').val(data.name);
+                            $('#e_description').val(data.description);
+                            $('#e_address').val(data.address);
+                            $('#e_date').val(data.date);
+                           
+                         //  $('#updateTournamentsForm').attr('action', "{{url('admin/tournaments')}}/"+id);
+                       }
+                   })
+               });
+     
+     
+               $(document).on('click', '.editDivision', function(e){
+                   $('#editDivisionModal').modal('show');
+                   e.preventDefault();
+         
+                   var id = $(this).attr('id');
+                   $.ajax({
+                     
+                       url: "{{url('admin/divisions/details')}}/"+id,
+                       method: "GET",
+                       success: function(data){
+                           console.log(data);
+                          // alert("Hello! Name   "  + data.name + "  GG"  );
+                          $('#divison_name').val(data.name);
+                          $('#divison_description').val(data.description);
+                         
+                           
+                          $('#updateDivisionForm').attr('action', "{{url('admin/divisions')}}/"+id);
+                       }
+                   })
+               });
+
+
+     
+             });
+                    
+     </script>
+
 <!-- jQuery -->
 <!-- <script src="plugins/jquery/jquery.min.js"></script> -->
 <!-- Bootstrap 4 -->

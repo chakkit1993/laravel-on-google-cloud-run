@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\CreateDivisionRequest;
+use App\Http\Requests\UpdateDivisionRequest;
+use App\Model\Division;
+use App\Model\Tournament;
 use Illuminate\Http\Request;
 
 class DivisionsController extends Controller
@@ -23,7 +26,7 @@ class DivisionsController extends Controller
      */
     public function create()
     {
-        return back();
+       // return back();
     }
 
     /**
@@ -32,10 +35,40 @@ class DivisionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDivisionRequest $request)
     {
-        //
+        //dd($tournament->all());
+        $image = 'image_path';//$request->image->store('posts');
+        $ldate = date('Y-m-d H:i:s');
+        $tour_id = $request->tour_id;
+        Division::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'tour_id'=>$request->tour_id,
+            'img' => $image,
+            'create_date' => $ldate,
+            'create_by' => auth()->user()->name
+        ]);
+
+        Session()->flash('success','บันทึกข้อมูลสำเร็จ');
+
+        return redirect(route('tournaments.show' , $tour_id));
     }
+
+
+         /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function details(Division $division)
+    {
+        // dd($tournament);
+        return response()->json($division);
+        
+    }
+
 
     /**
      * Display the specified resource.
@@ -66,9 +99,19 @@ class DivisionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDivisionRequest $request, Division $division)
     {
-        //
+        $tour_id = $request->tour_id;
+        //dd($request->all());
+     
+        $division->update(([
+            'name'=>$request->name,
+            'description'=>$request->description
+        ]));
+
+        Session()->flash('success','แก้ไขข้อมูลสำเร็จ');
+       
+        return redirect(route('tournaments.show' , $tour_id));
     }
 
     /**
@@ -77,8 +120,13 @@ class DivisionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Division $division)
     {
-        //
+       //$tournament->tags()->detach($tournament->post_id);
+       $division->delete();
+       //$tournament->deleteImage();
+       Session()->flash('success', 'ลบข้อมูลสำเร็จ');
+
+       return redirect(route('divisions.index'));
     }
 }

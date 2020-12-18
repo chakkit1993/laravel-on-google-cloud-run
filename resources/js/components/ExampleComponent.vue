@@ -6,7 +6,9 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                          <input type="text" v-model="date" class="form-control" name="date" >
+                    
+                        I'm an example component. 
                     </div>
                 </div>
             </div>
@@ -15,9 +17,20 @@
 </template>
 
 <script>
+   var moment = require('moment');
     export default {
+          data(){
+            return{
+                full_name:'',
+                email:'',
+                number:'',
+                address:'',
+                date: moment().format()
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+           // console.log('Component mounted.');
+            console.log('Component mounted.'+ moment().format());
         }
     }
 </script>

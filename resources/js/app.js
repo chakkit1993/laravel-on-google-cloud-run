@@ -5,8 +5,14 @@
  */
 
 require('./bootstrap');
+require('../../node_modules/bootstrap-select/dist/js/bootstrap-select.min');
+require('../../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min');
+// require('../../node_modules/sweetalert2/dist/js/sweetalert2.min');
+
 
 window.Vue = require('vue');
+
+
 
 /**
  * The following block of code may be used to automatically register your

@@ -35,14 +35,14 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.tournaments')}}"class="nav-link">
+            <a href="{{route('tournaments.index')}}"class="nav-link">
               <i class="nav-icon fas fa-trophy"></i>
           <p>Tournaments</p>
               
             </a>
           </li>
           <li class="nav-item">
-            <a  href="{{route('admin.divisions')}}"class="nav-link">
+            <a  href="{{route('divisions.index')}}"class="nav-link">
             <i class="nav-icon fas fa-motorcycle"></i>
             <p>Divison</p>
               
@@ -69,13 +69,19 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a  href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="nav-icon fas fa-sign-out-alt"></i>
               
               <p>
                 Logout
               </p>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+             </form>
+
+
+
           </li>
 
         </ul>
