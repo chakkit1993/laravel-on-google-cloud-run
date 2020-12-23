@@ -30,6 +30,7 @@
         "bootstrap-select": "^1.13.18",
         "datatables.net-bs4": "^1.10.22",
         "moment": "^2.29.1",
+        "moment-timezone": "^0.5.32",
         "sweetalert2": "^10.12.5",
         "vue-router": "^3.4.9"
     }

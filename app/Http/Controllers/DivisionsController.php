@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\CreateDivisionRequest;
 use App\Http\Requests\UpdateDivisionRequest;
-use App\Model\Division;
-use App\Model\Tournament;
+use App\Division;
+use App\Player;
+use App\Tournament;
 use Illuminate\Http\Request;
 
 class DivisionsController extends Controller
@@ -52,7 +53,8 @@ class DivisionsController extends Controller
 
         Session()->flash('success','บันทึกข้อมูลสำเร็จ');
 
-        return redirect(route('tournaments.show' , $tour_id));
+        return redirect(route('tournaments.show' , $tour_id))  
+        ->with('players', Player::all()->where('tour_id', $tour_id));
     }
 
 
@@ -122,11 +124,12 @@ class DivisionsController extends Controller
      */
     public function destroy(Division $division)
     {
+       $tour_id = $division->tour_id;
        //$tournament->tags()->detach($tournament->post_id);
        $division->delete();
        //$tournament->deleteImage();
        Session()->flash('success', 'ลบข้อมูลสำเร็จ');
 
-       return redirect(route('divisions.index'));
+       return redirect(route('tournaments.show' , $tour_id));
     }
 }

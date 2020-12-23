@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePlayerRequest;
+use App\Player;
+use App\Division;
+use App\Leaderboard;
+use App\Tag;
+use App\Tournament;
+use App\User;
 use Illuminate\Http\Request;
 
 class PlayersController extends Controller
@@ -32,9 +39,51 @@ class PlayersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePlayerRequest $request )
     {
-        //
+        //  dd($request->all());
+          $image = 'image_path';//$request->image->store('posts');
+ 
+        $ldate = date('Y-m-d H:i:s');
+        $tour_id = $request->tour_id;
+
+        $player = Player::create([
+              'name' => $request->name,
+              'phone' => $request->phone,
+              'no'=>$request->no,
+              'tag_id'=>$request->tag_id,
+              'tour_id'=>$tour_id,
+              'img' => $image,
+              'create_date' => $ldate,
+              'create_by' => auth()->user()->name
+          ]);
+         
+
+          
+         if ($request->division_id) {
+          
+        $player->divisions()->attach( $request->division_id );
+        }
+
+
+        for($x = 1 ; $x < 6 ;$x++){
+            $leader =  Leaderboard::create([
+                'player_id' => $player->id,
+                't1' => '00:00:00',
+                't2' => '00:00:00',
+                'tResult' => '00:00:00',
+                'stage'=>'S'.$x,
+               
+           ]);
+        }
+      
+
+
+       
+
+           Session()->flash('success','บันทึกข้อมูลสำเร็จ' );
+  
+          return redirect(route('tournaments.show' , $tour_id));
     }
 
     /**
@@ -54,10 +103,14 @@ class PlayersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Player $player)
     {
         //
     }
+
+    
+
+
 
     /**
      * Update the specified resource in storage.
@@ -66,9 +119,54 @@ class PlayersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Player $player)
     {
-        //
+
+        // dd($request->all());
+        $data = $request->only(['name', 'phone', 'no' , 'tag_id']);
+
+        // if ($request->hasFile('image')) {
+
+        //     $image = $request->image->store('posts');
+        //     $post->deleteImage();
+        //     $data['image'] = $image;
+        // }
+
+       
+
+        if ($request->division_id) {
+            $player->divisions()->sync($request->division_id);
+        }
+
+        $player->update($data);
+        $S1 = 'S1';
+
+        $leaderboards = $player->findLeaderboards($player->id);
+
+
+        // dd($request->all());
+        $s = 1;
+        foreach($leaderboards as $leaderboard){
+            $pc1 = 'S'.$s.'_pc1';
+            $pc2 = 'S'.$s.'_pc2';
+            $pc3 = 'S'.$s.'_pc3';
+            $pc4 = 'S'.$s.'_pc4';
+            $pc5 = 'S'.$s.'_pc5';
+            $leaderboard['pc1']  =  $request->$pc1;
+            $leaderboard['pc2']  =  $request->$pc2;
+            $leaderboard['pc3'] =  $request->$pc3;
+            $leaderboard['pc4'] =  $request->$pc4;
+            $leaderboard['pc5'] =  $request->$pc5;
+           
+    
+             $leaderboard->save();
+             $s++;
+        }
+       
+
+        Session()->flash('success', 'แก้ไขข้อมูลสำเร็จ');
+
+        return redirect(route('tournaments.show',$player->tour_id));
     }
 
     /**
@@ -77,8 +175,57 @@ class PlayersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Player $player)
     {
-        //
+        $tour_id = $player->tour_id;
+        $player->divisions()->detach($player->player_id);
+        $player->delete_leaderboards($player->id);
+        $player->delete();
+        //$tournament->deleteImage();
+        Session()->flash('success', 'ลบข้อมูลสำเร็จ');
+ 
+        return redirect(route('tournaments.show' , $tour_id));
     }
+
+             /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function details(Player $player)
+    {
+        // dd($tournament);
+       // $data = $player->hasDivision(2);
+        //dd($divisions);
+        return response()->json($player);
+        
+    }
+
+  
+
+                   /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function myedit(Tournament $tournament, Player $player)
+    {
+
+        return view('admin.tournaments.editForm-player')        
+        ->with('player', $player)
+        ->with('tournament',$tournament)
+        ->with('divisions', Division::all()->where('tour_id', $tournament->id))
+        ->with('leaderboards', Leaderboard::all()->where('player_id', $player->id));
+
+    }
+
+    public function updateCheckpoint(Request $request,Player $player)
+    {
+
+    }
+
+    
+
 }

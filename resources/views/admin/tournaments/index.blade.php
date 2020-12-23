@@ -37,7 +37,7 @@
               <div class="card-header">
     Featured
   </div>
-            <img src="/images/logo.png" class="card-img-top" alt="..."    style="width: 100%;  height: 10vw;    object-fit: scale-down; "  >
+            <img src="/images/tournament/1.jpg" class="card-img-top" alt="..."    style="width: 100%;  height: 10vw;    object-fit: scale-down; "  >
             <div class="card-body">
               <h5 class="card-title">{{$tournament->name}}</h5>
               <p class="card-text">{{$tournament->description}}</p>

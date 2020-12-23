@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTournamentRequest;
 use App\Http\Requests\UpdateTournamentRequest;
-use App\Model\Division;
-use App\Model\Tournament;
+use App\Division;
+use App\Leaderboard;
+use App\Player;
+use App\Tournament;
 use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
@@ -70,7 +72,9 @@ class TournamentsController extends Controller
        
         return view('admin.tournaments.details')
         ->with('tournament',$tournament)
-        ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+        ->with('divisions', Division::all()->where('tour_id', $tournament->id))
+        ->with('players', Player::all()->where('tour_id', $tournament->id))
+        ->with('leaderboards', Leaderboard::all());
        
     }
 

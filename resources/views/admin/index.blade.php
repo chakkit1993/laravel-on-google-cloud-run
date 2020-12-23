@@ -3,10 +3,6 @@
 @section('content')
  <!-- Page Content -->
  <div id="content">
-
-
-<div id="app">
-  
     <div class="d-flex justify-content-end mb-2">
     </div>
     <div class="card card-default">
@@ -84,7 +80,7 @@
           </div>
         </div>
 
-    </div>
+ 
 </div>
 
 
