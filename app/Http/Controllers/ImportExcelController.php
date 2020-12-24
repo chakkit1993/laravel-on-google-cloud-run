@@ -40,7 +40,8 @@ class ImportExcelController extends Controller
     {
         //dd( $tournament ->id);
        // return (new DivisionsExport)->download('division.xlsx');
-        return  Excel::download(new DivisionsExport($tournament->id), 'division.xlsx');
+        //return  Excel::download(new DivisionsExport($tournament->id), 'division.xlsx');
+        return back();
     }
    
     /**
@@ -51,7 +52,7 @@ class ImportExcelController extends Controller
         
        // $path = $request->upload_file->getRealPath();
       //  dd($path );
-        Excel::import(new DivisionsImport, $request->upload_file);
+       // Excel::import(new DivisionsImport, $request->upload_file);
            
         return back();
     }

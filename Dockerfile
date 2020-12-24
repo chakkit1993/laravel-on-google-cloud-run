@@ -1,8 +1,11 @@
-FROM composer:2.0.8 as build
+FROM composer:latest as build
 
 WORKDIR /app
 COPY  . /app
+
+
 RUN composer install
+
 
 FROM php:7.3-apache
 RUN docker-php-ext-install pdo pdo_mysql
