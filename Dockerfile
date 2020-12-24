@@ -1,4 +1,5 @@
-FROM composer:1.10.6 as build
+FROM composer:2.0.8 as build
+
 WORKDIR /app
 COPY  . /app
 RUN composer install

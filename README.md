@@ -45,7 +45,8 @@
     ## เปลี่ยน .env ในโปรเจ็ค เป็น .env.prod เพราะ Dockerfile จะมองไม่เห็น 
     ## เช็ค composer version command -> 'composer -V' 
     
-    FROM composer:1.10.6 as build
+    FROM composer:2.0.8 as build
+    //FROM composer:1.10.6 as build
     WORKDIR /app
     COPY  . /app
     RUN composer install

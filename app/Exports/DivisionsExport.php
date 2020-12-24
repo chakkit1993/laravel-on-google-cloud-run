@@ -4,14 +4,30 @@ namespace App\Exports;
 
 use App\Division;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class DivisionsExport implements FromCollection
+class DivisionsExport implements FromCollection,WithHeadings
 {
      
     protected $tour_id;
 
     function __construct($id) {
            $this->id = $id;
+    }
+
+
+    public function headings():array
+    {
+
+        return[
+            "id",
+            'Name',
+            'Descirption',
+            'Image Path',
+            'Tournament ID',
+            'Create Date',
+            'Create By',
+        ];
     }
    
 
