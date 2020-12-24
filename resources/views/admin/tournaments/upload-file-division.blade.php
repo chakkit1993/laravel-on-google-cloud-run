@@ -29,8 +29,3 @@
 
 </div>
 
-<script type="text/javascript">
-                $(document).ready(function(){
-                    // $('#select-tournament').selectpicker();
-                });
-</script>
