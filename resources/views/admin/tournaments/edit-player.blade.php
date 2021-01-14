@@ -102,12 +102,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-                $(document).ready(function(){
-                     $('#exampleFormControlSelect1').selectpicker();
-                     $('#exampleFormControlSelect2').selectpicker();
-                });
-               
-
-    </script>
 </div>

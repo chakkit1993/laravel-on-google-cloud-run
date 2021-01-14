@@ -4,10 +4,23 @@ namespace App\Imports;
 
 use App\Division;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-
-class DivisionsImport implements ToModel
+class DivisionsImport implements ToModel,WithStartRow
 {
+    private $tournamnet;
+    function __construct($param) {
+           $this->tournamnet = $param;
+    }
+    /**
+     * @return int
+     */
+    public function startRow(): int
+    {
+        return 2;
+    }
+
+
     /**
     * @param array $row
     *
@@ -15,13 +28,16 @@ class DivisionsImport implements ToModel
     */
     public function model(array $row)
     {
+        //dd($this->tournamnet->id);
+
+
         return new Division([
         'name' => $row[0],
         'description' => $row[1], 
-        'img'=> $row[3],
-        'tour_id'=> $row[4],
-        'create_date' => $row[5], 
-        'create_by'=> $row[6],
+        'img'=> " ",
+        'tour_id'=> $this->tournamnet->id,
+        'create_date' =>  date('Y-m-d H:i:s'), 
+        'create_by'=> $this->tournamnet->create_by,
         ]);
     }
 }

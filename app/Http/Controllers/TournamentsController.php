@@ -126,7 +126,9 @@ class TournamentsController extends Controller
             //return redirect(route('tournaments.index'));
             return view('admin.tournaments.details')
                  ->with('tournament',$tournament)
-                 ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+                 ->with('divisions', Division::all()->where('tour_id', $tournament->id))
+                 ->with('players', Player::all()->where('tour_id', $tournament->id))
+                 ->with('leaderboards', Leaderboard::all());
 
 
         
@@ -147,4 +149,40 @@ class TournamentsController extends Controller
 
         return redirect(route('tournaments.index'));
     }
+
+
+    public function genarateTime(Request $request ,Tournament $tournament)
+    {
+
+     
+       $players = Player::all()->where('tour_id', $tournament->id);
+      
+       $n =  0;
+       foreach($players as $player){
+
+        $leaderboards =  $player->findLeaderboards($player->id);
+       // dd($leaderboards);
+        foreach($leaderboards as $leaderboard){
+            //geanrate S1 - S5 
+            $leaderboard->t1  = $request->s_time;
+            $leaderboard->save();
+        }
+      
+        // $leaderboard[1]['t1']  = '12:20:11';
+        // $leaderboard[2]['t1']  = '12:20:11';
+        // $leaderboard[3]['t1']  = '12:20:11';
+        // $leaderboard[4]['t1']  = '12:20:11';
+       // dd($leaderboard[1]->t1);
+       }
+       
+      
+
+        // return redirect(route('tournaments.index'));
+        return view('admin.tournaments.details')
+        ->with('tournament',$tournament)
+        ->with('divisions', Division::all()->where('tour_id', $tournament->id))
+        ->with('players', Player::all()->where('tour_id', $tournament->id))
+        ->with('leaderboards', Leaderboard::all());
+    }
+
 }

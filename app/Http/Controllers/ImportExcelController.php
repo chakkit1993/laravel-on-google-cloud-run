@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DivisionsExport;
 use App\Imports\DivisionsImport;
 use App\Tournament;
 use Illuminate\Http\Request;
 
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class ImportExcelController extends Controller
 {
@@ -38,21 +39,22 @@ class ImportExcelController extends Controller
 
     public function exportExcel(Request $request , Tournament $tournament) 
     {
-        //dd( $tournament ->id);
+        // dd( $tournament ->id);
        // return (new DivisionsExport)->download('division.xlsx');
-        //return  Excel::download(new DivisionsExport($tournament->id), 'division.xlsx');
+        return  Excel::download(new DivisionsExport($tournament), 'division.xlsx');
         return back();
     }
    
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function import(Request $request) 
+    public function import(Request $request, Tournament $tournament) 
     {
         
        // $path = $request->upload_file->getRealPath();
-      //  dd($path );
-       // Excel::import(new DivisionsImport, $request->upload_file);
+       //dd($tournament->name );
+
+        Excel::import(new DivisionsImport($tournament), $request->upload_file);
            
         return back();
     }

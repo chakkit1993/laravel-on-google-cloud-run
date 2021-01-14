@@ -4,11 +4,20 @@ WORKDIR /app
 COPY  . /app
 
 
-RUN composer install
+
+RUN  composer install --ignore-platform-reqs
 
 
-FROM php:7.3-apache
+
+
+FROM php:7.4-apache
+
 RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update
+RUN apt-get install -y \
+        libzip-dev \
+        zip \
+  && docker-php-ext-install zip
 
 EXPOSE 8080
 COPY --from=build /app /var/www/

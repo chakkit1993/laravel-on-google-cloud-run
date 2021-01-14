@@ -123,7 +123,7 @@
                                     <th>PC3</th>
                                     <th>PC4</th>
                                     <th>PC5</th>
-                                    <th>t1!</th>
+                                    <th>t1</th>
                                     <th>t2</th>
                                     <th>tResult</th>
                                 </tr>
@@ -174,9 +174,10 @@
 
                                     </select>
                                     </td>
-                                    <td>{{$leaderboard->t1}}</td>
-                                    <td>{{$leaderboard->t2}}</td>
-                                    <td>{{$leaderboard->tResult}}</td>
+                                    <td> <input type="text" class="form-control input_time" id="{{$leaderboard->stage}}_t1" name="{{$leaderboard->stage}}_t1" placeholder="hh:mm:ss" value=" {{$leaderboard->t1}}">  </td>
+                                    <td> <input type="text" class="form-control input_time" id="{{$leaderboard->stage}}_t2" name="{{$leaderboard->stage}}_t2" placeholder="hh:mm:ss" value=" {{$leaderboard->t2}}">  </td>
+                                    <td> <input type="text" class="form-control input_time" id="input_tResult" name="input_tResult" placeholder="hh:mm:ss" value=" {{$leaderboard->tResult}}" disabled>  </td>
+                                   
                                 </tr>
                            @endforeach
                                 </tbody>

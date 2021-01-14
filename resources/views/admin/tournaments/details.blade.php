@@ -30,7 +30,7 @@
    </div>
       </div>
 
-    
+  
 
 
    <!--  main card body -->
@@ -67,11 +67,11 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                         @if($divisions->count()>0)
-                            <table id="table-division" class="table table-bordered table-striped">
+                            <table id="tabelDivision" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Image</th>
+                                    <!-- <th>Image</th> -->
                                     <th>Name</th>
                                     <th>Download</th>
                                     <th>Action</th>
@@ -79,11 +79,12 @@
                                 </thead>
                                 <tbody>
                                 @php($sl = 1)
-                             
+                                        <?php $n = 0; ?>
                                         @foreach($divisions as $division)
                                                 <tr>
-                                                    <td>{{$division->id}}</td>
-                                                    <td>{{$division->img}}</td>
+                                                <?php $n++; ?>
+                                                    <td>{{$n}}</td>
+                                                    <!-- <td>{{$division->img}}</td> -->
                                                     <td>{{$division->name}}</td>
                                                     <td>
                                                         <button  class="btn btn-primary  float-left" >  
@@ -138,7 +139,7 @@
                         <div class="card-body">
 
                               @if($players->count()>0)
-                            <table id="example2" class="table table-bordered table-striped">
+                            <table id="tabelPlayer" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -209,7 +210,7 @@
                             <button class="btn btn-primary float-right" data-toggle="modal" data-target="#uploadTimeModal">
                             <i class="fas fa-file-upload"><b> Upload</b></i>
                             </button>
-                            <button class="btn btn-warning float-right " data-toggle="modal" data-target="">
+                            <button class="btn btn-warning float-right genarateTime" data-toggle="modal" data-target="#genaratetimeModal">
                                 <i class="fa fa-horse-head"><b> Genarate Time</b></i>
                               
                             </button>
@@ -219,7 +220,7 @@
 
                       
                             @if($leaderboards->count()>0 && $players->count()>0)
-                            <table id="" class="table table-bordered table-striped">
+                            <table id="tabelLeaderboard" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>No.</th>
@@ -378,7 +379,7 @@
  @include('admin.tournaments.edit-tournament')
  @include('admin.tournaments.upload-file-division')
  @include('admin.tournaments.upload-file-player')
- 
+ @include('admin.tournaments.genaratetime_modal')
 
 
 @endsection

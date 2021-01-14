@@ -9,10 +9,10 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class DivisionsExport implements FromCollection,WithHeadings
 {
      
-    protected $tour_id;
-
-    function __construct($id) {
-           $this->id = $id;
+   //protected $tour_id;
+    private $tournamnet;
+    function __construct($param) {
+           $this->tournamnet = $param;
     }
 
 
@@ -20,14 +20,18 @@ class DivisionsExport implements FromCollection,WithHeadings
     {
 
         return[
-            "id",
-            'Name',
-            'Descirption',
-            'Image Path',
-            'Tournament ID',
-            'Create Date',
-            'Create By',
+            'ชื่อ',
+            'รายละเอียด',
         ];
+
+        // return[
+        //     'Name',
+        //     'Descirption',
+        //     'ImagePath',
+        //     'Tournament',
+        //     'CreateDate',
+        //     'CreateBy',
+        // ];
     }
    
 
@@ -36,8 +40,12 @@ class DivisionsExport implements FromCollection,WithHeadings
     */
     public function collection()
     {
+        //dd($this->tournamnet->id);
 
-        return Division::where('tour_id',$this->id)->get();
+        return Division::select('name', 'description')->where('tour_id',$this->tournamnet->id)->get();
+
+        
+       // return Division::where('tour_id',$this->id)->get();
 
 
         //return Division::all();

@@ -139,7 +139,7 @@ class PlayersController extends Controller
         }
 
         $player->update($data);
-        $S1 = 'S1';
+     
 
         $leaderboards = $player->findLeaderboards($player->id);
 
@@ -158,9 +158,46 @@ class PlayersController extends Controller
             $leaderboard['pc4'] =  $request->$pc4;
             $leaderboard['pc5'] =  $request->$pc5;
            
+            $t1 = 'S'.$s.'_t1';
+            $t2 = 'S'.$s.'_t2';
+            $leaderboard['t1']  =  $request-> $t1;
+            $leaderboard['t2']  =  $request-> $t2;
+ 
+
+
+            $tt1 = strtotime ( $request->$t1 ); 
+            $tt2 = strtotime ( $request->$t2 ); 
     
-             $leaderboard->save();
-             $s++;
+            // Set Format 
+            $sdate =  date('H:i:s',$tt1);
+            $ldate =  date('H:i:s',$tt2);
+          
+    
+            $gmtTimezone = config('app.timezone');
+    
+    
+            // if(strtotime($ldate) > strtotime($sdate)){
+
+                $timediff = strtotime($ldate) -  strtotime($sdate);
+                $temp =  date('H:i:s',$timediff );
+                // Covert timezone +07:00:00
+             if($timediff > 0){
+
+                $timediff2 =  date('H:i:s',  strtotime($temp) - 7*60*60);
+
+                $leaderboard['tResult'] =  $timediff2 ; 
+                
+              
+            }else{
+
+                $leaderboard['tResult'] =  '00:00:00' ; 
+                // Session()->flash('error', 'ข้อมูลไม่ถูกต้อง');
+                // return redirect(route('tournaments.show',$player->tour_id));
+            }
+
+            $leaderboard->save();
+            $s++; 
+           
         }
        
 

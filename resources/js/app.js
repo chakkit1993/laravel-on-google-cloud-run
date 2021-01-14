@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 require('../../node_modules/bootstrap-select/dist/js/bootstrap-select.min');
-require('../../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min');
+require('../../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min'); 
 // require('../../node_modules/sweetalert2/dist/js/sweetalert2.min');
 //require('../../node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap.min');
 

@@ -35,6 +35,7 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::resource('/admin/tournaments','TournamentsController');
 Route::get('/admin/tournaments/details/{tournament}',[TournamentsController::class,'details'])->name('tournaments.details');
+Route::post('/admin/tournaments/genarate-time/{tournament}',[TournamentsController::class,'genarateTime'])->name('tournaments.genarateTime');
 // Route::put('/admin/tournaments/update/{tournament}',[TournamentsController::class,'update'])->name('tournaments.update');
 
 
@@ -51,6 +52,7 @@ Route::resource('/admin/players','PlayersController');
 Route::get('/admin/players/details/{player}',[PlayersController::class,'details'])->name('players.details');
 Route::get('/admin/players/tournament-player/{tournament}/{player}',[PlayersController::class,'myedit'])->name('players.myedit');
 Route::get('/admin/players/player-checkpoint/{player}',[PlayersController::class,'updateCheckpoint'])->name('players.updateCheckpoint');
+
 // Route::get('/admin/players',[PlayersController::class,'index'])->name('admin.players');
 //Route::post('/admin/players/create',[PlayersController::class,'create'])->name('admin.players.create');
 // Route::post('/admin/players','PlayersController@create');
@@ -59,4 +61,4 @@ Route::get('/admin/players/player-checkpoint/{player}',[PlayersController::class
 Route::resource('/admin/leaderboard','LeaderboardsController');
 
 Route::get('/divisions/export/{tournament}', 'ImportExcelController@exportExcel')->name('divisions.export');
-Route::post('/admin/divisions/import', 'ImportExcelController@import')->name('divisions.import');
+Route::post('/admin/divisions/import/{tournament}', 'ImportExcelController@import')->name('divisions.import');

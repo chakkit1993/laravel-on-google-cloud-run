@@ -1,6 +1,6 @@
 <template>
    
-    
+    <div>
             <div class="col-md">
                 <div class="card clock-body">
                     <div class="card-header"> 
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-       
+       </div>
 
 </template>
 
@@ -37,13 +37,13 @@
 
             this.startInterval();
            // console.log('Component mounted.');
-            console.log('Component Clock.'+ moment().format());
+            console.log('Component Clock.');
         },   
         methods: {
              updateTimer :function (){
            this.date =  moment().format('DD-MM-yyyy');
            this.time =  moment().format('h:mm:ss');
-          console.log('Component Clock.'+ this.address)
+          //console.log('Component Clock.'+ this.address)
           },
         startInterval :function () {
               setInterval(() => {

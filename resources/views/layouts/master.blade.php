@@ -29,6 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/card-tour.css') }}" rel="stylesheet">
 <link href="{{ asset('css/clock.css') }}" rel="stylesheet">
+
 <!-- <script src="sweetalert2/dist/sweetalert2.all.min.js"></script> -->
 <!-- <link rel="stylesheet" href="{{ asset('css/bootstrap-select.css') }}" > -->
 
@@ -133,46 +134,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script> -->
 
 
-<script>
-    $(document).ready(function () {
-        $('.table').DataTable({
-          destroy: true,
-          searching: true
-        });
-    });
+<script src="/js/dataTableCustom.js"></script>
 
-    $(document).ready(function() {
-      let table1 = $('#examplePlayer').DataTable( {
-        searching: true,
-        destroy: true,
-        dom: 'Bfrtip',
-        buttons: [
-          'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        ordering: true,
-        info: true,
-        autoWidth: true,
-    
-      } );
-    // } );
-    table1.buttons().container()
-        .appendTo( '#examplePlayer_wrapper .col-md-6:eq(0)' );
-    } );
-
-
-
-
-
-</script>
-
-   
 <script type="text/javascript" >
-             
              $(document).ready( function () {
      
+              
+            
+
                $(document).on('click', '.editTournaments', function(e){
                    $('#editTournamentsModal').modal('show');
                    e.preventDefault();
@@ -252,6 +221,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
              });
                     
      </script>
+
+<script type="text/javascript">
+                $(document).ready(function(){
+                     $('#exampleFormControlSelect1').selectpicker();
+                     $('#exampleFormControlSelect2').selectpicker();
+                });
+               
+
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+                    
+                     //$('#datetimepicker1').datepicker();
+
+                    //  $('#time').timepicker({
+                    //       uiLibrary: 'bootstrap4',
+                    //       format: 'hh:mm:ss'
+                    //   });
+                    // $('#time').mask('00:00:00');
+                   
+                     $('#s_time').mask('00:00:00');
+
+                     $('.input_time').mask('00:00:00');
+
+                     });
+               
+</script>
+    <!-- <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" /> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script> 
 
 <!-- jQuery -->
 <!-- <script src="plugins/jquery/jquery.min.js"></script> -->

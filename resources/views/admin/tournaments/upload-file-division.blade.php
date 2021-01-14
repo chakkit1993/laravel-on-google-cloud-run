@@ -8,8 +8,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('divisions.import')}}" method="post" enctype="multipart/form-data" >
-                    @csrf
+                <form action="{{route('divisions.import',$tournament->id)}}" method="post" enctype="multipart/form-data" >
+                @csrf
+                  
                     <div class="input-group mb-3">
                     <input type="file" class="form-control" id="upload_file" name="upload_file">
                     <label class="input-group-text" for="inputGroupFile02">Upload</label>

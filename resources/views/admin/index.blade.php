@@ -76,6 +76,12 @@
         </div>
 
 
+        <div class="form-group">
+            <label for="time">Time (12h)</label>
+            <input type="text" class="form-control" id="time" name="time" placeholder="hh:mm:ss">
+          </div>
+
+<input type="text" class="form-control pull-right" id="datetimepicker1">
         <example-component></example-component>
           </div>
         </div>
