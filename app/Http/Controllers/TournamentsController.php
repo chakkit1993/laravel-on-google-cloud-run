@@ -105,9 +105,9 @@ class TournamentsController extends Controller
        
         return view('admin.tournaments.details')
         ->with('tournament',$tournament)
-        ->with('divisions', Division::all()->where('tour_id', $tournament->id))
-        ->with('players',  $players)
-        ->with('leaderboards', $viewsLeaderboard);
+        ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+        // ->with('players',  $players)
+        // ->with('leaderboards', $viewsLeaderboard);
        
     }
 
@@ -174,9 +174,9 @@ class TournamentsController extends Controller
             //return redirect(route('tournaments.index'));
             return view('admin.tournaments.details')
                  ->with('tournament',$tournament)
-                 ->with('divisions', Division::all()->where('tour_id', $tournament->id))
-                 ->with('players', $players)
-                 ->with('leaderboards',  $viewsLeaderboard);
+                 ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+                //  ->with('players', $players)
+                //  ->with('leaderboards',  $viewsLeaderboard);
 
 
         
@@ -245,9 +245,9 @@ class TournamentsController extends Controller
         // return redirect(route('tournaments.index'));
         return view('admin.tournaments.details')
         ->with('tournament',$tournament)
-        ->with('divisions', Division::all()->where('tour_id', $tournament->id))
-        ->with('players', $players)
-        ->with('leaderboards', $viewsLeaderboard);
+        ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+        // ->with('players', $players)
+        // ->with('leaderboards', $viewsLeaderboard);
     }
 
 }

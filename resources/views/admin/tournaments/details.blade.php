@@ -139,15 +139,6 @@
     
  </div>
 
- @include('admin.tournaments.add-player')
- @include('admin.tournaments.add-division')
- @include('admin.tournaments.add-time')
- @include('admin.tournaments.edit-player')
- @include('admin.tournaments.edit-division')
- @include('admin.tournaments.edit-tournament')
- @include('admin.tournaments.upload-file-division')
- @include('admin.tournaments.upload-file-player')
- @include('admin.tournaments.genaratetime_modal')
 
 
 @endsection
