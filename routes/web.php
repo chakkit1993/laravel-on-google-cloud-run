@@ -37,6 +37,8 @@ Route::resource('/admin/tournaments','TournamentsController');
 Route::get('/admin/tournaments/details/{tournament}',[TournamentsController::class,'details'])->name('tournaments.details');
 Route::post('/admin/tournaments/genarate-time/{tournament}',[TournamentsController::class,'genarateTime'])->name('tournaments.genarateTime');
 // Route::put('/admin/tournaments/update/{tournament}',[TournamentsController::class,'update'])->name('tournaments.update');
+Route::get('/admin/tournaments/{tournament}/division/{division}',[TournamentsController::class,'players'])->name('tournaments.players');
+
 
 
 Route::resource('/admin/divisions','DivisionsController');
@@ -45,6 +47,8 @@ Route::get('/admin/divisions/details/{division}',[DivisionsController::class,'de
 // Route::get('/admin/divisions',[DivisionsController::class,'index'])->name('admin.divisions');
 // Route::get('/admin/divisions/create',[DivisionsController::class,'create'])->name('admin.divisions.create');
 // Route::post('/admin/divisions','DivisionsController@create');
+Route::get('admin/api/divisions',[DivisionsController::class,'getDivision'])->name('api.divisions');
+Route::get('admin/api/players',[PlayersController::class,'getPlayers'])->name('api.players');
 
 
 
@@ -61,4 +65,8 @@ Route::get('/admin/players/player-checkpoint/{player}',[PlayersController::class
 Route::resource('/admin/leaderboard','LeaderboardsController');
 
 Route::get('/divisions/export/{tournament}', 'ImportExcelController@exportExcel')->name('divisions.export');
-Route::post('/admin/divisions/import/{tournament}', 'ImportExcelController@import')->name('divisions.import');
+Route::get('/divisions/export/players/{division}', 'ImportExcelController@exportExcelplayers')->name('players.export');
+
+
+Route::post('/admin/divisions/import/{tournament}', 'ImportExcelController@importDivision')->name('divisions.import');
+Route::post('/admin/players/import/{tournament}', 'ImportExcelController@importPlayers')->name('players.import');

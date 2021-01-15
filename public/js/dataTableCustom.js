@@ -133,7 +133,7 @@
                 text: 'Excel',
                 pageSize: 'A4',
                 exportOptions: {
-                            columns: [ 0 ,2]
+                            columns: [ 0 ,1]
                         },
           }
         ],

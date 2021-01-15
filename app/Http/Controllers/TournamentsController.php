@@ -8,7 +8,9 @@ use App\Division;
 use App\Leaderboard;
 use App\Player;
 use App\Tournament;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection as SupportCollection;
 
 class TournamentsController extends Controller
 {
@@ -22,6 +24,22 @@ class TournamentsController extends Controller
 
         return view('admin.tournaments.index')->with('tournaments', Tournament::all()->sortByDesc('id'));
     }
+
+    public function players(Tournament $tournament, Division $division)
+    {
+       
+        $players = new Collection();
+        foreach($division->players as $player){
+            $players[] = $player;
+        }
+
+       // dd($players);
+        return view('admin.players.index')
+        ->with('tournament',$tournament)
+        ->with('division', $division)
+        ->with('players', $players);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -69,12 +87,27 @@ class TournamentsController extends Controller
     public function show(Tournament $tournament)
     {
         
+        $viewsLeaderboard = new Collection();
+        $players = Player::all()->where('tour_id', $tournament->id)->sortBy('no');
+
+        foreach($players as $player){
+
+            $leaderboards =  $player->findLeaderboards($player->id)->where('stage' , 'S1');
+
+            foreach($leaderboards as $leaderboard){
+
+                $viewsLeaderboard[] =  $leaderboard;
+            }
+    
+           }
+
+        
        
         return view('admin.tournaments.details')
         ->with('tournament',$tournament)
         ->with('divisions', Division::all()->where('tour_id', $tournament->id))
-        ->with('players', Player::all()->where('tour_id', $tournament->id))
-        ->with('leaderboards', Leaderboard::all());
+        ->with('players',  $players)
+        ->with('leaderboards', $viewsLeaderboard);
        
     }
 
@@ -122,13 +155,28 @@ class TournamentsController extends Controller
             ]));
     
             Session()->flash('success','แก้ไขข้อมูลสำเร็จ');
-           
+
+            $viewsLeaderboard = new Collection();
+            $players = Player::all()->where('tour_id', $tournament->id)->sortBy('no');
+
+            foreach($players as $player){
+
+                $leaderboards =  $player->findLeaderboards($player->id)->where('stage' , 'S1');
+
+                foreach($leaderboards as $leaderboard){
+
+                    $viewsLeaderboard[] =  $leaderboard;
+                }
+        
+               }
+
+
             //return redirect(route('tournaments.index'));
             return view('admin.tournaments.details')
                  ->with('tournament',$tournament)
                  ->with('divisions', Division::all()->where('tour_id', $tournament->id))
-                 ->with('players', Player::all()->where('tour_id', $tournament->id))
-                 ->with('leaderboards', Leaderboard::all());
+                 ->with('players', $players)
+                 ->with('leaderboards',  $viewsLeaderboard);
 
 
         
@@ -154,19 +202,36 @@ class TournamentsController extends Controller
     public function genarateTime(Request $request ,Tournament $tournament)
     {
 
+        $viewsLeaderboard = new Collection();
      
-       $players = Player::all()->where('tour_id', $tournament->id);
+       $players = Player::all()->where('tour_id', $tournament->id)->sortBy('no');
       
+
+       
+      
+        
        $n =  0;
+      
+
+
+
        foreach($players as $player){
 
-        $leaderboards =  $player->findLeaderboards($player->id);
+        $leaderboards =  $player->findLeaderboards($player->id)->where('stage' , 'S1');
+      
        // dd($leaderboards);
+       $tt1 = strtotime ( $request->s_time )  + (30 * $n); 
+       $t1 =  date('H:i:s',$tt1);
+
         foreach($leaderboards as $leaderboard){
             //geanrate S1 - S5 
-            $leaderboard->t1  = $request->s_time;
+            $leaderboard->t1  =  $t1;
             $leaderboard->save();
+
+            $viewsLeaderboard[] =  $leaderboard;
         }
+
+        $n++;
       
         // $leaderboard[1]['t1']  = '12:20:11';
         // $leaderboard[2]['t1']  = '12:20:11';
@@ -174,15 +239,15 @@ class TournamentsController extends Controller
         // $leaderboard[4]['t1']  = '12:20:11';
        // dd($leaderboard[1]->t1);
        }
-       
-      
+  
+      // dd($viewsLeaderboard);
 
         // return redirect(route('tournaments.index'));
         return view('admin.tournaments.details')
         ->with('tournament',$tournament)
         ->with('divisions', Division::all()->where('tour_id', $tournament->id))
-        ->with('players', Player::all()->where('tour_id', $tournament->id))
-        ->with('leaderboards', Leaderboard::all());
+        ->with('players', $players)
+        ->with('leaderboards', $viewsLeaderboard);
     }
 
 }

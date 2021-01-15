@@ -239,6 +239,21 @@ class PlayersController extends Controller
         
     }
 
+    
+             /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getPlayers()
+    {
+       
+        $players = Player::all();
+        //dd($divisions);
+        return response()->json($players);
+        
+    }
   
 
                    /**

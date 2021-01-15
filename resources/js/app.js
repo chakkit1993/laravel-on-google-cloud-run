@@ -13,8 +13,7 @@ require('../../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.mi
 
 
 window.Vue = require('vue');
-
-
+window.axios = require('axios');
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,6 +28,11 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('clock-component', require('./components/Clock.vue').default);
+Vue.component('divison-component', require('./components/DivisonTable.vue').default);
+Vue.component('players-component', require('./components/PlayersTable.vue').default);
+Vue.component('projects', require('./components/Projects.vue').default);
+Vue.component('projects-client-side', require('./components/ProjectsClientSide.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

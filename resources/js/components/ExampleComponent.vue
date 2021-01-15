@@ -31,6 +31,14 @@
         mounted() {
            // console.log('Component mounted.');
             console.log('Component mounted.'+ moment().format());
+            this.getData
+        },
+
+        medthod:{
+            getData(){
+                consolr.log("hello divison ");
+            }
+
         }
     }
 </script>

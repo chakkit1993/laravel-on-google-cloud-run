@@ -132,4 +132,16 @@ class DivisionsController extends Controller
 
        return redirect(route('tournaments.show' , $tour_id));
     }
+
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDivision()
+    {
+        $divisions = Division::all();
+        return response()->json($divisions);
+    }
 }
