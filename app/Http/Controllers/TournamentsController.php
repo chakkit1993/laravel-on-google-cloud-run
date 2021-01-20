@@ -254,7 +254,7 @@ class TournamentsController extends Controller
         
        $n =  0;
       
-       dd($request->all());
+       //dd($request->all());
 
 
        for($x = 0 ; $x< $players->count()  ; $x= $x + $request->BikePerRound ){

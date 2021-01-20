@@ -15,7 +15,7 @@ class PlayersImport implements ToModel,WithStartRow,WithChunkReading
 {
     use RemembersChunkOffset;
     private $tournamnet;
-    private $division;
+    private $divisions;
     function __construct($param) {
            $this->tournamnet = $param;
     }
@@ -43,11 +43,11 @@ class PlayersImport implements ToModel,WithStartRow,WithChunkReading
     
         $chunkOffset = $this->getChunkOffset();
 
-
+    
         for($x = 4 ; $x < 9 ;$x++){
             $division =  Division::all()->where('tour_id' ,  $this->tournamnet->id)->where('code',strtoupper($row[$x]))->first();
             if( $division != null ){
-                $this->divisions[] =  $division->id;
+                $divisions[] =  $division->id;
             }
            
         }
@@ -72,9 +72,9 @@ class PlayersImport implements ToModel,WithStartRow,WithChunkReading
 
             //dd($id_division);
     
-            if ( $this->divisions) {
+            if ( $divisions) {
               
-                $player->divisions()->attach(  $this->divisions );
+                $player->divisions()->attach( $divisions );
             }
            
             
