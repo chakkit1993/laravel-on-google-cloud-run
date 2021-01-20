@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\LedaerboardApiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
  Route::get('/divisions','Api\DivisionContorller@index')->name('admin.divi');
  Route::get('/players','PlayersController@getPlayers')->name('admin.playersJSON');
+
+ Route::get('admin/leaderboards',[LedaerboardApiController::class,'index'])->name('api.leaderboards');
+
+Route::put('admin/leaderboards/update/{id}',[LedaerboardApiController::class,'updateAll'])->name('api.Updateleaderboards');
+
+Route::get('admin/{tournament}/leaderboard','LeaderboardsController@getindex');

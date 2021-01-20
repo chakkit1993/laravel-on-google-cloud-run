@@ -36,20 +36,31 @@ class DivisionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateDivisionRequest $request)
+    public function store(CreateDivisionRequest $request )
     {
-        //dd($tournament->all());
+        $tournament = Tournament::find($request->tour_id);
+        //dd($tournament->name);
+        
         $image = 'image_path';//$request->image->store('posts');
         $ldate = date('Y-m-d H:i:s');
-        $tour_id = $request->tour_id;
-        Division::create([
+        $tour_id = $tournament->id;
+        $division = Division::create([
+            'code'=>'',
             'name' => $request->name,
             'description' => $request->description,
-            'tour_id'=>$request->tour_id,
+            'tour_id'=>$tournament->id,
             'img' => $image,
             'create_date' => $ldate,
             'create_by' => auth()->user()->name
         ]);
+
+        $code = $tournament->code .'C'.sprintf("%02d", $division->id);
+
+        $division->update(([
+            'code'=>$code,
+        ]));
+
+
 
         Session()->flash('success','บันทึกข้อมูลสำเร็จ');
 

@@ -25,21 +25,45 @@ class TournamentsController extends Controller
         return view('admin.tournaments.index')->with('tournaments', Tournament::all()->sortByDesc('id'));
     }
 
-    public function players(Tournament $tournament, Division $division)
+    public function playersByDivision(Tournament $tournament, Division $division)
     {
+        //dd($tournament);
        
-        $players = new Collection();
-        foreach($division->players as $player){
-            $players[] = $player;
-        }
+        $players = $division->players()->where('tour_id', $tournament->id)->get();
+        //dd($players);
+      
 
-       // dd($players);
-        return view('admin.players.index')
-        ->with('tournament',$tournament)
-        ->with('division', $division)
-        ->with('players', $players);
+       // dd( $division->name);
+       return view('admin.tournaments.playersBydivision-table')
+       ->with('tournament',$tournament)
+       ->with('division', $division)
+       ->with('players', $players);
+   
     }
 
+
+   
+ 
+    public function  leaderboards(Tournament $tournament)
+    {
+       
+        //$players = $division->players()->where('tour_id', $tournament->id)->get();
+        //dd($players);
+      
+
+       // dd( $division->name);
+   
+        return view('admin.leaderboards.index')
+        ->with('tournament',$tournament);
+    }
+
+    public function  newHome(Tournament $tournament)
+    {
+
+        return view('admin.tournaments.new-home')
+        ->with('tournament',$tournament)
+        ->with('divisions', Division::all()->where('tour_id', $tournament->id));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +87,10 @@ class TournamentsController extends Controller
          // insert data to db
          $image = 'image_path';//$request->image->store('posts');
          $ldate = date('Y-m-d H:i:s');
-         Tournament::create([
+      
+        // dd($code);
+        $tournament = Tournament::create([
+            'code'=> '',
             'name' => $request->name,
             'description' => $request->description,
             'address' => $request->address,
@@ -72,6 +99,17 @@ class TournamentsController extends Controller
             'create_date' => $ldate,
             'create_by' => auth()->user()->name
         ]);
+      // create code 
+        $code = 'TM'.sprintf("%02d", $tournament->id );
+
+        $tournament->update(([
+            'code'=>$code,
+        ]));
+
+     
+
+  
+       
 
         Session()->flash('success','บันทึกข้อมูลสำเร็จ');
        
@@ -89,25 +127,29 @@ class TournamentsController extends Controller
         
         $viewsLeaderboard = new Collection();
         $players = Player::all()->where('tour_id', $tournament->id)->sortBy('no');
+        //place this before any script you want to calculate time
+        $time_start = microtime(true); 
+                // foreach($players as $player){
 
-        foreach($players as $player){
+                //     $leaderboards=  $player->findLeaderboards($player->id);
 
-            $leaderboards =  $player->findLeaderboards($player->id)->where('stage' , 'S1');
+                //     foreach($leaderboards as $leaderboard){
 
-            foreach($leaderboards as $leaderboard){
+                //         $viewsLeaderboard[] =  $leaderboard;
+                //     }
+            
+                //    }
 
-                $viewsLeaderboard[] =  $leaderboard;
-            }
-    
-           }
-
-        
+                $time_end = microtime(true);
+        $execution_time = ($time_end - $time_start);
+        //    dd($execution_time);
+      
        
         return view('admin.tournaments.details')
         ->with('tournament',$tournament)
-        ->with('divisions', Division::all()->where('tour_id', $tournament->id));
-        // ->with('players',  $players)
-        // ->with('leaderboards', $viewsLeaderboard);
+         ->with('divisions', Division::all()->where('tour_id', $tournament->id))
+         ->with('players',  $players)
+         ->with('leaderboards', Leaderboard::all());
        
     }
 
@@ -174,9 +216,9 @@ class TournamentsController extends Controller
             //return redirect(route('tournaments.index'));
             return view('admin.tournaments.details')
                  ->with('tournament',$tournament)
-                 ->with('divisions', Division::all()->where('tour_id', $tournament->id));
-                //  ->with('players', $players)
-                //  ->with('leaderboards',  $viewsLeaderboard);
+                 ->with('divisions', Division::all()->where('tour_id', $tournament->id))
+                ->with('players',  $players)
+                ->with('leaderboards', Leaderboard::all());
 
 
         
@@ -212,24 +254,33 @@ class TournamentsController extends Controller
         
        $n =  0;
       
+       dd($request->all());
 
 
+       for($x = 0 ; $x< $players->count()  ; $x= $x + $request->BikePerRound ){
 
-       foreach($players as $player){
+            for($y = 0 ;$y < $request->BikePerRound ; $y++){
+                if(( $x + $y) <  $players->count() ){
 
-        $leaderboards =  $player->findLeaderboards($player->id)->where('stage' , 'S1');
-      
-       // dd($leaderboards);
-       $tt1 = strtotime ( $request->s_time )  + (30 * $n); 
-       $t1 =  date('H:i:s',$tt1);
+                    $leaderboards =  $players[0]->findLeaderboards($players[$x + $y]->id)->where('stage' , 'S1');
 
-        foreach($leaderboards as $leaderboard){
-            //geanrate S1 - S5 
-            $leaderboard->t1  =  $t1;
-            $leaderboard->save();
+                    $tt1 = strtotime ( $request->s_time )  + ($request->TimePerRound * $n); 
+                    $t1 =  date('H:i:s',$tt1);
+             
+                     foreach($leaderboards as $leaderboard){
+                         //geanrate S1 - S5 
+                         $leaderboard->t1  =  $t1;
+                         $leaderboard->time_pc0  =  $t1;
+                         $leaderboard->save();
+             
+                        //  $viewsLeaderboard[] =  $leaderboard;
+                     }
+                }
+              
 
-            $viewsLeaderboard[] =  $leaderboard;
-        }
+                $debug[] =  $x + $y;
+            }
+   
 
         $n++;
       
@@ -240,14 +291,37 @@ class TournamentsController extends Controller
        // dd($leaderboard[1]->t1);
        }
   
-      // dd($viewsLeaderboard);
+      // dd($debug);
 
         // return redirect(route('tournaments.index'));
-        return view('admin.tournaments.details')
-        ->with('tournament',$tournament)
-        ->with('divisions', Division::all()->where('tour_id', $tournament->id));
-        // ->with('players', $players)
-        // ->with('leaderboards', $viewsLeaderboard);
+        return redirect(route('tournaments.leaderboards' , $tournament->id));
+       
     }
+
+
+    public function deleteAll(Request $request , Tournament $tournament)
+    {   $players = Player::all()->where('tour_id', $tournament->id)->take(50);
+
+       // dd($tournament);
+      
+    
+        foreach($players as $player ){
+            
+       
+            $player->divisions()->detach($player->player_id);
+            $player->delete_leaderboards($player->id);
+            $player->delete();
+          
+            
+        }
+        // $view = Player::all()->count();
+      
+        //     dd($view);
+    
+       Session()->flash('success', 'ลบข้อมูลสำเร็จ');
+ 
+       return redirect(route('tournaments.show' , $tournament->id));
+    }
+
 
 }

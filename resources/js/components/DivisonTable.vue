@@ -8,7 +8,7 @@
                         </div>
                     <div class="card-body">
                        
-                            <table id="" class="table table-bordered table-striped data-table">
+                            <table id="tabelDivision" class="table table-bordered table-striped data-table">
                                 <thead>
                                 <tr>
                                     <th>No.</th>

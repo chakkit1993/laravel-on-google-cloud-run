@@ -16,6 +16,11 @@ class PlayersExport implements FromCollection,WithHeadings
            $this->division = $param;
     }
 
+ 
+
+        
+
+
 
     public function headings():array
     {
@@ -24,6 +29,27 @@ class PlayersExport implements FromCollection,WithHeadings
             'ชื่อ',
             'หมายเลขรถ',
             'rfid',
+            'Stage',
+            'TStart',
+            'TFinish',
+            'TResult',
+            'Stage',
+            'TStart',
+            'TFinish',
+            'TResult',
+            'Stage',
+            'TStart',
+            'TFinish', 
+            'TResult',
+            'Stage',
+            'TStart',
+            'TFinish',
+            'TResult',
+            'Stage',
+            'TStart',
+            'TFinish',
+            'TResult',
+            'ผลรวมS1-S5',
         ];
 
         // return[
@@ -43,22 +69,65 @@ class PlayersExport implements FromCollection,WithHeadings
     {
         $players = $this->division->players()->get();
 
-       
+       dd($players);
         $views = new Collection();
         foreach($players as $player){
-            $leaderboard = $player->findLeaderboards($player->id)->where('stage','S1')->first();
+            //$leaderboard = $player->findLeaderboards($player->id)->where('stage','S1')->first();
+
+            $leaderboards = $player->findLeaderboards($player->id);
+           
+            $timeS1_S5 = '00:00:00';
+     
+            foreach($leaderboards as $leaderboard){
+              
+                $tack = [  
+                    'stage'=>  $leaderboard['stage'],
+                    't1'=>  $leaderboard['t1'],
+                    't2'=>  $leaderboard['t2'],
+                    'tResult'=>  $leaderboard['tResult'],
+                  ];
+                 
+
+                   $secs = strtotime($tack['tResult'])-strtotime("00:00:00");
+                   $timeS1_S5 = date("H:i:s",strtotime($timeS1_S5)+$secs);   
+                   
+                
+                  $tacks[] =  $tack;
+                  
+               
+            }
             $view =[
                 'name' => $player['name'],
                 'no' => $player['no'],
                 'rfid' => $player['tag_id'],
-                //'leaderboard' => $leaderboard['t1'],
-                'stage'=>  $leaderboard['stage'],
-                't1'=>  $leaderboard['t1'],
-                't2'=>  $leaderboard['t2'],
-                'tResult'=>  $leaderboard['tResult'],
+                'stage_1'=>  $tacks[0]['stage'],
+                't1_1'=>  $tacks[0]['t1'],
+                't2_1'=> $tacks[0]['t2'],
+                'tResult_1'=> $tacks[0]['tResult'],
+                'stage_2'=>  $tacks[1]['stage'],
+                't1_2'=>  $tacks[1]['t1'],
+                't2_2'=> $tacks[1]['t2'],
+                'tResult_2'=>  $tacks[1]['tResult'],
+                'stage_3'=>  $tacks[2]['stage'],
+                't1_3'=>  $tacks[2]['t1'],
+                't2_3'=> $tacks[2]['t2'],
+                'tResult_3'=>  $tacks[2]['tResult'],
+                'stage_4'=>  $tacks[3]['stage'],
+                't1_4'=>  $tacks[3]['t1'],
+                't2_4'=> $tacks[3]['t2'],
+                'tResult_4'=>  $tacks[3]['tResult'],
+                'stage_5'=>  $tacks[4]['stage'],
+                't1_5'=>  $tacks[4]['t1'],
+                't2_5'=> $tacks[4]['t2'],
+                'tResult_5'=>  $tacks[4]['tResult'],
+                'tAll' =>  $timeS1_S5 ,
             ];
-            //array_push($views, $view);
+
+
             $views[] = $view;
+         
+            //array_push($views, $view);
+           
         }
         
         //dd(  $views);

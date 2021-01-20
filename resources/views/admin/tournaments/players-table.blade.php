@@ -2,12 +2,23 @@
     <div class="card">
                         <div class="card-header">
                             <span class="h4">Player List</span>
+                            <form class="delete_form " action="{{route('tournaments.deleteAll',$tournament->id)}}" method="post">
+                                            @csrf
+                            <input type="hidden" name="_method" value="DELETE">  
+                            <button type="submit" name="" value="Delete" class="btn btn-danger   float-right "><i class="fas fa fa-trash"></i> <b> Delete 50 Item</b> </button>
+
+                            </form>
+
                             <button class="btn btn-success float-right" data-toggle="modal" data-target="#addPlayerModal">
                                 <i class="fa fa-plus"><b> Add New</b></i>
                             </button>
                             <button class="btn btn-primary float-right" data-toggle="modal" data-target="#uploadPlayerModal">
                             <i class="fas fa-file-upload"><b> Upload</b></i>
                             </button>
+
+                    
+
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -40,7 +51,7 @@
                                       </td>
                                       <td>  
                                         
-                                      <a id="{{$player->id}}" href="{{route('players.myedit',['tournament'=> $tournament,'player' =>$player])}}" class="btn btn-success  float-left  ">
+                                      <a id="{{$player->id}}" href="{{route('players.myedit',['tournament'=> $tournament,'player' => $player])}}" class="btn btn-success  float-left  ">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                     <form class="delete_form" action="{{route('players.destroy',$player->id)}}" method="post">

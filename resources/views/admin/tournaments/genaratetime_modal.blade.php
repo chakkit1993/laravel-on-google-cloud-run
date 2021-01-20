@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label for="BikePerRound">BikePerRound</label>
                         <select class="form-control selectpicker show-tick"     data-live-search="true" id="BikePerRound" name="BikePerRound">
-                            @for($x = 0; $x <= 10; $x++)
+                            @for($x = 1; $x <= 10; $x++)
                             <option value="{{$x}}">{{$x}}</option>
                             @endfor
                         </select>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label for="TimePerRound">TimePerRound</label>
                         <select class="form-control selectpicker show-tick"     data-live-search="true" id="TimePerRound" name="TimePerRound">
-                            @for($x = 0; $x <= 5; $x++)
+                            @for($x = 1; $x <= 5; $x++)
                             <option value="{{$x * 30 }}">{{$x * 30}}</option>
                             @endfor
                         </select>

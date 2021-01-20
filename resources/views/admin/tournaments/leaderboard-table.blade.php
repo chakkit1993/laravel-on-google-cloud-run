@@ -40,9 +40,9 @@
                                 <tr>
                                      
                                     <td>{{$leaderboard->id}}</td>
-                                    <td> {{$leaderboard->findPlayer($leaderboard->player_id)->name}}  </td>
+                                    <td>  </td>
                                     <td> {{$leaderboard->stage}}  </td>
-                                    <td> {{$leaderboard->findPlayer($leaderboard->player_id)->tag_id}}  </td>
+                                    <td>   </td>
                                     <td>
                                     <span class="badge {{($leaderboard->pc1)?'badge-success':'badge-danger'}} ">PC1</span>
                                     <span class="badge {{($leaderboard->pc2)?'badge-success':'badge-danger'}} ">PC2</span>
@@ -54,8 +54,7 @@
                                       <td>{{$leaderboard->t2}}</td>
                                       <td>{{$leaderboard->tResult}}</td>
                                       <td>  
-                                        <?php $player = $leaderboard->findPlayer($leaderboard->player_id) ?>
-                                      <a id="{{$player->id}}" href="{{route('players.myedit',['tournament'=> $tournament,'player' =>$player])}}" class="btn btn-success  float-left  ">
+                                      <a id="{{1}}" href="{{}}" class="btn btn-success  float-left  ">
                                         <i class="fa fa-edit"></i>
                                     </a>
                              

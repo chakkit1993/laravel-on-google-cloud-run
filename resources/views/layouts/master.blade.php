@@ -62,8 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-md-12">
-          <divison-component></divison-component>
-               <clock-component></clock-component>
+               <!-- <clock-component></clock-component> -->
           </div><!-- /.col -->
         </div><!-- /.row -->
         @if(Session()->has('success'))
@@ -76,7 +75,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     {{Session()->get('error')}}
                 </div>
                 @endif
-
+                @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="list-group">
+                @foreach($errors->all() as $error)
+                <li class="list-group-item">{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
                 
       </div><!-- /.container-fluid -->
     </div>

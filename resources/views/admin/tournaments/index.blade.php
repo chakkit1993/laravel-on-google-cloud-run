@@ -5,15 +5,7 @@
 <section class="content">
 
   <div class="card">
-  @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="list-group">
-                @foreach($errors->all() as $error)
-                <li class="list-group-item">{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+
 
  
 
@@ -32,7 +24,7 @@
   
           <div class="row">
             @foreach($tournaments as $tournament)
-              <div class="col-sm">
+              <div class="col-sm-4">
               <div class="card" style="width: 18rem;  ">
               <div class="card-header">
     Featured
@@ -66,7 +58,7 @@
             </div>
             <!-- End main card body -->
         </section>
-    </div>
+    
 
     @include('admin.tournaments.add-tournament')
 

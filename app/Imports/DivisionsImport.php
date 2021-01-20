@@ -28,16 +28,21 @@ class DivisionsImport implements ToModel,WithStartRow
     */
     public function model(array $row)
     {
-        //dd($this->tournamnet->id);
-
-
-        return new Division([
-        'name' => $row[0],
-        'description' => $row[1], 
-        'img'=> " ",
-        'tour_id'=> $this->tournamnet->id,
-        'create_date' =>  date('Y-m-d H:i:s'), 
-        'create_by'=> $this->tournamnet->create_by,
+        $division =  Division ::create([
+            'code'=>'',
+            'name' => $row[0],
+            'description' => $row[1], 
+            'img'=> " ",
+            'tour_id'=> $this->tournamnet->id,
+            'create_date' =>  date('Y-m-d H:i:s'), 
+            'create_by'=> $this->tournamnet->create_by,
         ]);
+        $code = $this->tournamnet->code .'C'.sprintf("%02d", $division->id);
+
+        $division->update(([
+            'code'=>$code,
+        ]));
+
+        return ;
     }
 }

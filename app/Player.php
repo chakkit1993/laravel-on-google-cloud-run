@@ -44,10 +44,23 @@ class Player extends Model
         return $this->hasMany(Leaderboard::class);
     }
 
+    public function findLeaderboard($player_id , $stage)
+    {
+        $leaderboard = Leaderboard::all()->where('player_id', $player_id )->where('stage', $stage )->first();;
+        return  $leaderboard;
+    }
+
     public function findLeaderboards($player_id)
     {
         $leaderboards = Leaderboard::all()->where('player_id', $player_id );
         return  $leaderboards;
+    }
+
+    public function findLeaderboardS1($player_id)
+    {
+        $leaderboard = Leaderboard::all()->where('player_id', $player_id )->where('stage', 'S1' )->first();
+        return response()->json($leaderboard);
+       // return  $leaderboard;
     }
 
     

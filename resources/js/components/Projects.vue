@@ -15,9 +15,9 @@
         <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
             <tbody>
                 <tr v-for="project in projects" :key="project.id">
-                    <td>{{project.deadline}}</td>
-                    <td>{{project.budget}}</td>
-                    <td>{{project.status}}</td>
+                    <td>{{project.id}}</td>
+                    <td>{{project.stage}}</td>
+                    <td>{{project.name}}</td>
                 </tr>
             </tbody>
         </datatable>
@@ -40,8 +40,8 @@ export default {
         let sortOrders = {};
 
         let columns = [
-            {width: '33%', label: 'Deadline', name: 'deadline' },
-            {width: '33%', label: 'Budget', name: 'budget'},
+            {width: '33%', label: 'id', name: 'id' },
+            {width: '33%', label: 'stage', name: 'stage'},
             {width: '33%', label: 'Status', name: 'status'}
         ];
 
@@ -74,11 +74,12 @@ export default {
         }
     },
     methods: {
-        getProjects(url = '/projects') {
+        getProjects(url = '/admin/leaderboard') {
             this.tableData.draw++;
             axios.get(url, {params: this.tableData})
                 .then(response => {
                     let data = response.data;
+                   // console.log(data);
                     if (this.tableData.draw == data.draw) {
                         this.projects = data.data.data;
                         this.configPagination(data.data);
@@ -101,7 +102,7 @@ export default {
         sortBy(key) {
             this.sortKey = key;
             this.sortOrders[key] = this.sortOrders[key] * -1;
-            this.tableData.column = this.getIndex(this.columns, 'name', key);
+            this.tableData.column = this.getIndex(this.columns, 'stage', key);
             this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
             this.getProjects();
         },

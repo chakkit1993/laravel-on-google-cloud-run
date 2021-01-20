@@ -27,9 +27,9 @@ window.axios = require('axios');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('clock-component', require('./components/Clock.vue').default);
 Vue.component('divison-component', require('./components/DivisonTable.vue').default);
 Vue.component('players-component', require('./components/PlayersTable.vue').default);
+Vue.component('clock-component', require('./components/Clock.vue').default);
 Vue.component('projects', require('./components/Projects.vue').default);
 Vue.component('projects-client-side', require('./components/ProjectsClientSide.vue').default);
 

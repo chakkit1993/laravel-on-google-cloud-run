@@ -12,7 +12,7 @@ class Tournament extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'address','date' ,'img','create_date','create_by'
+        'code' ,'name', 'description', 'address','date' ,'img','create_date','create_by'
     ];
 
     public function divisions()

@@ -17,7 +17,7 @@
         @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                       <a href="#" class="d-block">  {{ Auth::user()->name }}</a>
+                       <a href="{{route('home')}}" class="d-block">  {{ Auth::user()->name }}</a>
                     @else
                     <script>window.location = "/home";</script>
                     @endauth
@@ -36,29 +36,37 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-            <a  href="{{route('admin')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-         
+            <a  href="{{route('home')}}" class="nav-link">
+          
+              <i class="nav-icon fas fa-arrow-left"></i>
               
-              <p>Dashboard</p>
+              <p>Home</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('tournaments.index')}}"class="nav-link">
-              <i class="nav-icon fas fa-trophy"></i>
-          <p>Tournaments</p>
+            <a  href="{{route('home')}}" class="nav-link">
+          
+              <i class="nav-icon fas fa-user"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('tournaments.show',$tournament->id)}}"class="nav-link">
+              <i class="nav-icon fas fa-house-user"></i>
+          <p>Information</p>
               
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a  href="{{route('divisions.index')}}"class="nav-link">
             <i class="nav-icon fas fa-motorcycle"></i>
             <p>Divison</p>
               
         
             </a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a  href="{{route('players.index')}}"class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
           
@@ -66,14 +74,12 @@
               
         
             </a>
-          </li>
+          </li> -->
 
           <li class="nav-item">
-            <a  href="{{route('players.index')}}"class="nav-link">
+            <a  href="{{route('tournaments.leaderboards' ,$tournament->id)}}"class="nav-link">
            <i class="nav-icon  fas fa-bullhorn"></i>
-            <p>Add Manual</p>
-              
-        
+            <p>Laederboard</p>
             </a>
           </li>
 

@@ -18,10 +18,10 @@
               <div class="inner">
                 <h3>150</h3>
 
-                <p>New Orders</p>
+                <p>Class </p>
               </div>
               <div class="icon">
-              <i class="fas fa-shopping-bag"></i>
+              <i class="fas fa-motorcycle"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -74,15 +74,12 @@
           </div>
           <!-- ./col -->
         </div>
+ <!-- ./row -->
+
+ 
 
 
-        <div class="form-group">
-            <label for="time">Time (12h)</label>
-            <input type="text" class="form-control" id="time" name="time" placeholder="hh:mm:ss">
-          </div>
-
-<input type="text" class="form-control pull-right" id="datetimepicker1">
-        <example-component></example-component>
+      
           </div>
         </div>
 

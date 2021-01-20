@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Division;
 use App\Player;
 use App\Leaderboard;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,20 @@ class PlayersImport implements ToModel,WithStartRow,WithChunkReading
     
         $chunkOffset = $this->getChunkOffset();
 
+
+        for($x = 4 ; $x < 9 ;$x++){
+            $division =  Division::all()->where('tour_id' ,  $this->tournamnet->id)->where('code',strtoupper($row[$x]))->first();
+            if( $division != null ){
+                $divisions[] =  $division->id;
+            }
+           
+        }
+     
+       
+
+        //dd($divisions);
+
+
             $player =  Player ::create([
                 'name' => $row[1],
                 'phone' => $row[2], 
@@ -52,21 +67,29 @@ class PlayersImport implements ToModel,WithStartRow,WithChunkReading
                 'create_by'=> Auth::user()->name,
             ]);
 
-            $id_division= array( $row[4],$row[5],$row[6],$row[7],$row[8]);
+            
+
             //dd($id_division);
     
-            if ($id_division) {
+            if ( $divisions) {
               
-                $player->divisions()->attach( $id_division );
-                }
-        
-        
+                $player->divisions()->attach(  $divisions );
+            }
+           
+            
                 for($x = 1 ; $x < 6 ;$x++){
                     $leader =  Leaderboard::create([
                         'player_id' => $player->id,
                         't1' => '00:00:00',
                         't2' => '00:00:00',
                         'tResult' => '00:00:00',
+                        'time_pc0' => '00:00:00',
+                        'time_pc1' => '00:00:00',
+                        'time_pc2' => '00:00:00',
+                        'time_pc3' => '00:00:00',
+                        'time_pc4' => '00:00:00',
+                        'time_pc5' => '00:00:00',
+                        'time_pc6' => '00:00:00',
                         'stage'=>'S'.$x,
                        
                    ]);

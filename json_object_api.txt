@@ -1,0 +1,36 @@
+json object update time 
+
+{
+   	
+	"data" : [ 
+		{
+        "tournament": 2,
+	    "stage" : "S1",
+		"point" : "PC1",
+		"rfid": "1333",
+		"time": "13:44:00"
+		},{
+		"tournament": 1,
+	    "stage" : "S1",
+		"point" : "PC1",
+		"rfid": "3",
+		"time": "13:00:00"
+		},
+        {
+		 "tournament": 2,
+	    "stage" : "S1",
+		"point" : "PC2",
+		"rfid": "4",
+		"time": "13:00:00"
+		},
+        {
+		 "tournament": 2,
+	    "stage" : "S1",
+		"point" : "PC3",
+		"rfid": "5",
+		"time": "13:00:00"
+		}
+	]
+}
+
+

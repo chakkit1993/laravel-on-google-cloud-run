@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\DivisionsController;
+use App\Http\Controllers\LeaderboardsController;
 use App\Http\Controllers\PlayersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TournamentsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,9 +39,16 @@ Route::resource('/admin/tournaments','TournamentsController');
 Route::get('/admin/tournaments/details/{tournament}',[TournamentsController::class,'details'])->name('tournaments.details');
 Route::post('/admin/tournaments/genarate-time/{tournament}',[TournamentsController::class,'genarateTime'])->name('tournaments.genarateTime');
 // Route::put('/admin/tournaments/update/{tournament}',[TournamentsController::class,'update'])->name('tournaments.update');
-Route::get('/admin/tournaments/{tournament}/division/{division}',[TournamentsController::class,'players'])->name('tournaments.players');
+Route::get('/admin/tournaments/{tournament}/division/{division}',[TournamentsController::class,'playersByDivision'])->name('tournaments.playersByDivision');
 
 
+Route::get('/admin/tournaments/{tournament}/leaderboards',[TournamentsController::class,'leaderboards'])->name('tournaments.leaderboards');
+
+
+Route::delete('/admin/tournaments/{tournament}/deleteAll',[TournamentsController::class,'deleteAll'])->name('tournaments.deleteAll');
+
+
+Route::get('/admin/tournaments/new-home/{tournament}',[TournamentsController::class,'newHome'])->name('tournaments.new');
 
 Route::resource('/admin/divisions','DivisionsController');
 
@@ -54,7 +63,7 @@ Route::get('admin/api/players',[PlayersController::class,'getPlayers'])->name('a
 
 Route::resource('/admin/players','PlayersController');
 Route::get('/admin/players/details/{player}',[PlayersController::class,'details'])->name('players.details');
-Route::get('/admin/players/tournament-player/{tournament}/{player}',[PlayersController::class,'myedit'])->name('players.myedit');
+Route::get('/admin/tournaments/{tournament}/players/{player}',[PlayersController::class,'myedit'])->name('players.myedit');
 Route::get('/admin/players/player-checkpoint/{player}',[PlayersController::class,'updateCheckpoint'])->name('players.updateCheckpoint');
 
 // Route::get('/admin/players',[PlayersController::class,'index'])->name('admin.players');
@@ -63,6 +72,11 @@ Route::get('/admin/players/player-checkpoint/{player}',[PlayersController::class
 
 
 Route::resource('/admin/leaderboard','LeaderboardsController');
+
+
+
+
+
 
 Route::get('/divisions/export/{tournament}', 'ImportExcelController@exportExcel')->name('divisions.export');
 Route::get('/divisions/export/players/{division}', 'ImportExcelController@exportExcelplayers')->name('players.export');

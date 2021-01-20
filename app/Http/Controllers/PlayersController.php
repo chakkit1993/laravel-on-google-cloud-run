@@ -20,7 +20,7 @@ class PlayersController extends Controller
      */
     public function index()
     {
-        return view('admin.players.index');
+        return view('admin.players.index')->with('players',Player::all());
     }
 
     /**
@@ -71,7 +71,14 @@ class PlayersController extends Controller
                 'player_id' => $player->id,
                 't1' => '00:00:00',
                 't2' => '00:00:00',
-                'tResult' => '00:00:00',
+                'time_pc0' => '00:00:00',
+                'time_pc1' => '00:00:00',
+                'time_pc2' => '00:00:00',
+                'time_pc3' => '00:00:00',
+                'time_pc4' => '00:00:00',
+                'time_pc5' => '00:00:00',
+                'time_pc6' => '00:00:00',
+                
                 'stage'=>'S'.$x,
                
            ]);
@@ -162,7 +169,9 @@ class PlayersController extends Controller
             $t2 = 'S'.$s.'_t2';
             $leaderboard['t1']  =  $request-> $t1;
             $leaderboard['t2']  =  $request-> $t2;
- 
+            
+            $leaderboard['time_pc0']  =  $request-> $t1;
+            $leaderboard['time_pc6']  =  $request-> $t2;
 
 
             $tt1 = strtotime ( $request->$t1 ); 
@@ -264,7 +273,7 @@ class PlayersController extends Controller
      */
     public function myedit(Tournament $tournament, Player $player)
     {
-
+        //dd($tournament->id);
         return view('admin.tournaments.editForm-player')        
         ->with('player', $player)
         ->with('tournament',$tournament)
@@ -273,10 +282,32 @@ class PlayersController extends Controller
 
     }
 
-    public function updateCheckpoint(Request $request,Player $player)
+             /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getPlayersByDivision(Tournament $tournament,  Division $division)
     {
+       
+         
+        $players = $division->players()->where('tour_id', $tournament->id)->get();
+        //dd($players);
+      
 
+       // dd( $division->name);
+   
+        return view('admin.players.index')
+        ->with('tournament',$tournament)
+        ->with('division', $division)
+        ->with('players', $players);
+        
     }
+
+
+
+   
 
     
 

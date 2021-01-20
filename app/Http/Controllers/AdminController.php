@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tournament;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,8 +13,8 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.index');
+    {   $tournamnet = Tournament::all()->first();
+        return view('admin.index')->with('tournament' , $tournamnet);
     }
 
     /**

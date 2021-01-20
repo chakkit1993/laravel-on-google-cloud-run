@@ -83,11 +83,22 @@ class ImportExcelController extends Controller
     */
     public function importPLayers(Request $request, Tournament $tournament) 
     {
-        
+        $validated = $request->validate([
+            'upload_file' => 'required',
+        ]);
+
+        if($validated){
+            Session()->flash('success', 'ข้อมูลถูกต้อง');
+            Excel::import(new PlayersImport($tournament), $request->upload_file);
+        }else{
+            Session()->flash('error', 'ข้อมูลไม่ถูกต้อง');
+            redirect(route('tournaments.leaderboards' , $tournament->id));
+
+        }
     //     $path = $request->upload_file->getRealPath();
         //dd( $request->upload_file );
 
-        Excel::import(new PlayersImport($tournament), $request->upload_file);
+        
            
         return back();
     }
