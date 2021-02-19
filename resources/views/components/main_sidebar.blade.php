@@ -43,13 +43,13 @@
               <p>Home</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a  href="{{route('home')}}" class="nav-link">
           
               <i class="nav-icon fas fa-user"></i>
               <p>Profile</p>
             </a>
-          </li>
+          </li> -->
 
           <li class="nav-item">
             <a href="{{route('tournaments.show',$tournament->id)}}"class="nav-link">

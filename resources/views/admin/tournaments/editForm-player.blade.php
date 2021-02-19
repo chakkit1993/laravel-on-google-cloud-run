@@ -193,7 +193,7 @@
 
 
                 <div class="modal-footer">
-                <a href="{{route('tournaments.show',$tournament)}}">
+                <a href="{{ redirect()->back()->getTargetUrl() }}">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button></a>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>

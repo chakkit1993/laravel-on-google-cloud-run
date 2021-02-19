@@ -9,6 +9,9 @@ use App\Tournament;
 use Illuminate\Database\Eloquent\Collection;
 class LeaderboardsController extends Controller
 {
+
+    private $oldLeader = null;
+    private $newLeader = null;
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +32,7 @@ class LeaderboardsController extends Controller
 
     }
 
-    public function getindex(Request $request ,Tournament $tournament)
+    public function getLeaderboardJSON(Request $request ,Tournament $tournament)
     {
 
     $totalData = Leaderboard::all()->where('stage', 'S1' )->count();
@@ -57,18 +60,19 @@ class LeaderboardsController extends Controller
 
     // preparing an array
         $s = 'S1';
-        $tempData =  Leaderboard::all()->where('stage', 'S1' );
+        $tempData =  Leaderboard::all()->where('stage', 'S1' )->sortByDesc('tResult');
         $data = new Collection();
 
       
-
+        $n = 1;
         foreach($tempData as $_data){
             
-            $player =  $_data->findPlayerTournament( $tournament->id,$_data->player_id );
+            $player =  $_data->findOnePlayerTournament( $tournament->id,$_data->player_id );
            // $player =  Player::all()->where('id' ,$_data->player_id)->first();
            // $data[] = $_data;
             if($player != null){
                 $view =[
+                    'no' =>$n++,
                     'id' =>$_data['id'],
                     'player_id' => $player['id'],
                     'name' => $player['name'],
@@ -95,6 +99,10 @@ class LeaderboardsController extends Controller
 
        
 
+        // if($this->oldLeader== null){
+        //     $this->oldLeader  =  $data;
+          
+        // }
 
         // while( $row = mysqli_fetch_array($query) ) {
         //     $nestedData=[];

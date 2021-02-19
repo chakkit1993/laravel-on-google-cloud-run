@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LedaerboardApiController;
+use App\Http\Controllers\Api\PlayersApiController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,7 +26,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  Route::get('/players','PlayersController@getPlayers')->name('admin.playersJSON');
 
  Route::get('admin/leaderboards',[LedaerboardApiController::class,'index'])->name('api.leaderboards');
+ Route::get('admin/frontleaderboards',[LedaerboardApiController::class,'getFrontLeaderboardJSON'])->name('api.front-leaderboards');
+
 
 Route::put('admin/leaderboards/update/{id}',[LedaerboardApiController::class,'updateAll'])->name('api.Updateleaderboards');
 
-Route::get('admin/{tournament}/leaderboard','LeaderboardsController@getindex');
+Route::get('admin/{tournament}/leaderboard','LeaderboardsController@getLeaderboardJSON');
+
+Route::get('admin/tournament/{tournament}/division/{division}',[PlayersApiController::class,'playerByDivisionJSON'])->name('api.playerBydivision');
+Route::delete('admin/tournament/{tournament}/player/{player}',[PlayersApiController::class,'destroy'])->name('api.playersDestroy');
+
+
+

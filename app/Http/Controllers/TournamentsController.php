@@ -11,6 +11,7 @@ use App\Tournament;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Facades\Config;
 
 class TournamentsController extends Controller
 {
@@ -106,14 +107,47 @@ class TournamentsController extends Controller
             'code'=>$code,
         ]));
 
-     
+        //$colors =  Config::get('constants.color');
 
+        //dd( $colors[1]);
+        $classes =  Config::get('constants.class');
+        // create Class demo 
+            for($x = 0 ; $x < 20 ; $x++){
+
+                $image = 'image_path';//$request->image->store('posts');
+                $ldate = date('Y-m-d H:i:s');
+                $tour_id = $tournament->id;
+                $division = Division::create([
+                    'code'=>'',
+                    'color'=>$x,
+                    'name' => $classes[$x],
+                    'description' => $request->description,
+                    'tour_id'=>$tournament->id,
+                    'img' => $image,
+                    'create_date' => $ldate,
+                    'create_by' => auth()->user()->name
+                ]);
+        
+                $code = $tournament->code .'C'.sprintf("%02d", $x);
+        
+                $division->update(([
+                    'code'=>$code,
+                ]));
+
+                
+            }
   
+
+        
+        
+    
+
+
        
 
-        Session()->flash('success','บันทึกข้อมูลสำเร็จ');
+        Session()->flash('success','สร้างข้อมูลสำเร็จ');
        
-        return redirect(route('tournaments.index'));
+        return redirect(route('home'));
     }
 
     /**
@@ -127,6 +161,9 @@ class TournamentsController extends Controller
         
         $viewsLeaderboard = new Collection();
         $players = Player::all()->where('tour_id', $tournament->id)->sortBy('no');
+
+
+        //dd($players->first()->divisions()->get());
         //place this before any script you want to calculate time
         $time_start = microtime(true); 
                 // foreach($players as $player){
@@ -179,6 +216,36 @@ class TournamentsController extends Controller
         //return view('tournament.create')->with('tournament',$tournament);
     }
 
+
+      /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function setFrontLeaderboard(Request $request , Tournament $tournament)
+    {
+        $tournaments =  Tournament::all();
+
+
+        //dd($tournament);
+        foreach($tournaments as $tour){
+            $tour->update(([
+                'active'=>false
+            ]));
+        }
+        
+        $tournament->update(([
+            'active'=>true
+        ]));
+
+        return view('home')
+        ->with('tournaments', Tournament::all()->sortByDesc('id'));
+    }
+
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -220,8 +287,6 @@ class TournamentsController extends Controller
                 ->with('players',  $players)
                 ->with('leaderboards', Leaderboard::all());
 
-
-        
     }
 
     /**
@@ -233,11 +298,28 @@ class TournamentsController extends Controller
     public function destroy(Tournament $tournament)
     {
         //$tournament->tags()->detach($tournament->post_id);
-        $tournament->delete();
-        //$tournament->deleteImage();
-        Session()->flash('success', 'ลบข้อมูลสำเร็จ');
+        $count =  Player::all()->where('tour_id', $tournament->id)->count();
+        //dd($x);
+        if(   $count = Player::all()->where('tour_id', $tournament->id)->count() != 0 ){
+            Session()->flash('error', 'กรุณาลบข้อมูลผู้เข้าร่วมการแข่งขัน');
+            return redirect(route('home'));
+        }else{
 
-        return redirect(route('tournaments.index'));
+
+           $divisions =  Division::all()->where('tour_id', $tournament->id);
+           foreach($divisions as $division) {
+            $division->delete();
+           }
+            $tournament->delete();
+            //$tournament->deleteImage();
+            Session()->flash('success', 'ลบข้อมูลสำเร็จ');
+    
+            return redirect(route('home'));
+        }
+
+       
+
+      
     }
 
 
@@ -247,10 +329,7 @@ class TournamentsController extends Controller
         $viewsLeaderboard = new Collection();
      
        $players = Player::all()->where('tour_id', $tournament->id)->sortBy('no');
-      
 
-       
-      
         
        $n =  0;
       

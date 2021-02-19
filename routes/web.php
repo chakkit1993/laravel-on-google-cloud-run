@@ -5,6 +5,7 @@ use App\Http\Controllers\LeaderboardsController;
 use App\Http\Controllers\PlayersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TournamentsController;
+use App\Tournament;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +19,14 @@ use App\Http\Controllers\TournamentsController;
 */
 
 Route::get('/', function () {
-    return view('front-end.home.home');
+    return view('front-end.home.home')->with('tournament' , Tournament::where('active', 1)->first());
     //return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/leaderboard', 'HomeController@leaderboard')->name('home.board');
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 
@@ -43,6 +45,7 @@ Route::get('/admin/tournaments/{tournament}/division/{division}',[TournamentsCon
 
 
 Route::get('/admin/tournaments/{tournament}/leaderboards',[TournamentsController::class,'leaderboards'])->name('tournaments.leaderboards');
+Route::get('/admin/tournaments/setFrontLeaderboard/{tournament}',[TournamentsController::class,'setFrontLeaderboard'])->name('tournaments.setFrontLeaderboard');
 
 
 Route::delete('/admin/tournaments/{tournament}/deleteAll',[TournamentsController::class,'deleteAll'])->name('tournaments.deleteAll');
@@ -72,7 +75,7 @@ Route::get('/admin/players/player-checkpoint/{player}',[PlayersController::class
 
 
 Route::resource('/admin/leaderboard','LeaderboardsController');
-
+Route::get('/leaderboard','FrontEnd\FrontEndLeaderboardController@index');
 
 
 
@@ -84,3 +87,6 @@ Route::get('/divisions/export/players/{division}', 'ImportExcelController@export
 
 Route::post('/admin/divisions/import/{tournament}', 'ImportExcelController@importDivision')->name('divisions.import');
 Route::post('/admin/players/import/{tournament}', 'ImportExcelController@importPlayers')->name('players.import');
+
+
+Route::get('/export/timer', 'ImportExcelController@exportTimer')->name('timer.export');

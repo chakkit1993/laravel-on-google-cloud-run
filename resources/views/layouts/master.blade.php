@@ -172,7 +172,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    })
                });
      
-     
+
+              
+               
+
+               $(document).on('click', '.createtimeModal', function(e){
+                   $('#createtimeModal').modal('show');
+                   e.preventDefault();
+         
+                   var id = $(this).attr('id');
+                   $.ajax({
+                     
+                       url: "{{url('admin/divisions/details')}}/"+id,
+                       method: "GET",
+                       success: function(data){
+                           console.log(data);
+                          // alert("Hello! Name   "  + data.name + "  GG"  );
+                          // $('#divison_name').val(data.name);
+                          // $('#divison_description').val(data.description);
+                          // $('#divison_code').val(data.code);
+                         
+                           
+                          // $('#updateDivisionForm').attr('action', "{{url('admin/divisions')}}/"+id);
+                       }
+                   })
+               });
+
+
                $(document).on('click', '.editDivision', function(e){
                    $('#editDivisionModal').modal('show');
                    e.preventDefault();
@@ -187,6 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           // alert("Hello! Name   "  + data.name + "  GG"  );
                           $('#divison_name').val(data.name);
                           $('#divison_description').val(data.description);
+                          $('#divison_code').val(data.code);
                          
                            
                           $('#updateDivisionForm').attr('action', "{{url('admin/divisions')}}/"+id);

@@ -28,10 +28,8 @@ window.axios = require('axios');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('divison-component', require('./components/DivisonTable.vue').default);
-Vue.component('players-component', require('./components/PlayersTable.vue').default);
 Vue.component('clock-component', require('./components/Clock.vue').default);
-Vue.component('projects', require('./components/Projects.vue').default);
-Vue.component('projects-client-side', require('./components/ProjectsClientSide.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

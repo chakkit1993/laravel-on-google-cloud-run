@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>TheEvent - Bootstrap Event Template</title>
+  <title>Chiang Dao Enduro Challenge</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -18,6 +18,9 @@
   <!-- Bootstrap CSS File -->
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  
   <!-- Libraries CSS Files -->
   <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="lib/animate/animate.min.css" rel="stylesheet">
@@ -27,6 +30,9 @@
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/blink-text.css') }}" rel="stylesheet">
+
+ 
   <!-- =======================================================
     Theme Name: TheEvent
     Theme URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
@@ -51,8 +57,9 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-<script src="/js/app.js"></script>
 
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}" defer></script>
 
 <!-- <script src="{{asset('/front-end')}}/js/jquery-3.2.1.min.js"></script>
 <script src="{{asset('/front-end')}}/js/popper.js"></script>
@@ -88,6 +95,10 @@
   <script src="js/main.js"></script>
 
 
+
+    <!-- Template Custom By Chakkit Javascript File -->
+
+  <script src="/js/dataTableCustom.js"></script>
 </body>
 
 </html>

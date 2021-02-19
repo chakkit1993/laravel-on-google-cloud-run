@@ -71,6 +71,7 @@ class PlayersController extends Controller
                 'player_id' => $player->id,
                 't1' => '00:00:00',
                 't2' => '00:00:00',
+                'tResult' => '00:00:00',
                 'time_pc0' => '00:00:00',
                 'time_pc1' => '00:00:00',
                 'time_pc2' => '00:00:00',
@@ -169,7 +170,7 @@ class PlayersController extends Controller
             $t2 = 'S'.$s.'_t2';
             $leaderboard['t1']  =  $request-> $t1;
             $leaderboard['t2']  =  $request-> $t2;
-            
+
             $leaderboard['time_pc0']  =  $request-> $t1;
             $leaderboard['time_pc6']  =  $request-> $t2;
 

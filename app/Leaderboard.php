@@ -27,15 +27,18 @@ class Leaderboard extends Model
       return  $player;
 
   }
-  public function findPlayerTournament($tournamnet , $id)
+  public function findOnePlayerTournament($tournament , $id)
   {
-      $player = Player::where('id' , $id)->where('tour_id', $tournamnet)->first();
+      $player = Player::where('id' , $id)->where('tour_id', $tournament)->first();
       return  $player;
   }
 
-  public function findPlayerRFID($tournamnet,$rfid)
+  public function findPlayerRFID($tournament,$rfid)
   {
-      $player = Player::where('tour_id', $tournamnet)->where('tag_id' , $rfid)->first();
+      $tour =  Tournament::all()->where('code',$tournament)->first();
+
+
+      $player = Player::where('tour_id', $tour->id)->where('tag_id' , $rfid)->first();
       return  $player;
   }
 

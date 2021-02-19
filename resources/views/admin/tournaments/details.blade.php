@@ -1,6 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
+<?php
+use Illuminate\Support\Facades\Config;
+?>
+<?php $colors =  Config::get('constants.color'); $class =  Config::get('constants.class'); ?>
  <!-- Page Content -->
  <div id="content">
  <div class="card">
@@ -34,8 +38,14 @@
             </div>
             <div class="col-md-4 ">
             <a id="{{$tournament->id}}" href="#editTournamentsModal" class="btn btn-success editTournaments" data-toggle="modal">
-                    <i class="fa fa-edit"></i>
+                    <i class="fa fa-edit"><b>Edit</b></i>
                 </a>
+            <button class="btn btn-warning  createtimeModal" data-toggle="modal" data-target="#createtimeModal">
+                <i class="fa fa-horse-head"><b>Time</b></i>
+                
+            </button>
+
+
 
             </div>
             </div>
@@ -61,7 +71,7 @@
  @include('admin.tournaments.edit-tournament')
  @include('admin.tournaments.upload-file-division')
  @include('admin.tournaments.upload-file-player')
- 
+ @include('admin.tournaments.create_time_modal')
 
 
 @endsection

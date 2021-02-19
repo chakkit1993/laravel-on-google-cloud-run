@@ -2,14 +2,14 @@
   <div class="col-md-12 ">
     <div class="card">
                         <div class="card-header">
-                            <span class="h4">Leaderboard</span>
+                            <span class="h4">ตารางเวลาการแข่งขัน</span>
                      
-                            <button class="btn btn-success float-right addTime" data-toggle="modal" data-target="#">
+                            <!-- <button class="btn btn-success float-right addTime" data-toggle="modal" data-target="#">
                                 <i class="fa fa-plus"><b> Add New</b></i>
                             </button>
                             <button class="btn btn-primary float-right" data-toggle="modal" data-target="#uploadTimeModal">
                             <i class="fas fa-file-upload"><b> Upload</b></i>
-                            </button>
+                            </button> -->
                             <button class="btn btn-warning float-right genarateTime" data-toggle="modal" data-target="#genaratetimeModal">
                                 <i class="fa fa-horse-head"><b> Genarate Time</b></i>
                               
@@ -27,7 +27,6 @@
                                     <th>Name</th>
                                     <th>Stage</th>
                                     <th>Tag RFID</th>
-                                    <th>Check Point</th>
                                     <th>Time Start</th>
                                     <th>Time Finish</th>
                                     <th>Time Result</th>

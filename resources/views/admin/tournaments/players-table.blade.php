@@ -1,7 +1,9 @@
+
+<div class="row">
 <div class="col-md-12 ">
     <div class="card">
                         <div class="card-header">
-                            <span class="h4">Player List</span>
+                            <span class="h4">ผู้เข้าร่วมการแข่งขัน จำนวน {{$players->count()}}</span>
                             <form class="delete_form " action="{{route('tournaments.deleteAll',$tournament->id)}}" method="post">
                                             @csrf
                             <input type="hidden" name="_method" value="DELETE">  
@@ -22,7 +24,8 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                        <?php $n = 0; ?>
+                        <?php
+                        $n = 0; ?>
                               @if($players->count()>0)
                             <table id="tabelPlayer" class="table table-bordered table-striped">
                                 <thead>
@@ -30,9 +33,7 @@
                                     <th>No.</th>
                                     <th>Name</th>
                                     <th>Motorcycle No</th>
-                                    <th>Tag RFID</th>
-                                    <th>Phone</th>
-                                    <th>Status</th>
+                                    <th>Class</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -43,12 +44,19 @@
                                 <tr>
                                     <td>{{ $n}}</td>
                                     <td>{{$player->name}}</td>
-                                    <td>{{$player->no}}</td>
-                                    <td>{{$player->tag_id}}</td>
-                                    <td>{{$player->phone}}</td>
+                                    <td>{{$player->no}} </td>
                                     <td>
-                                    <span class="badge badge-success">Success</span>
-                                      </td>
+                                 
+
+                                   
+                                    @foreach($player->divisions()->get() as $division)
+                                    
+                                         <span class='badge badge-success'  style='background-color:{{$colors[$division->color]}}'>{{$division->code}}</span>
+                                        @endforeach
+                                 
+                                 
+                                    </td>
+                                    
                                       <td>  
                                         
                                       <a id="{{$player->id}}" href="{{route('players.myedit',['tournament'=> $tournament,'player' => $player])}}" class="btn btn-success  float-left  ">
@@ -84,3 +92,4 @@
                     </div>
                     </div> 
   <!-- end col-12 -->
+  </div>

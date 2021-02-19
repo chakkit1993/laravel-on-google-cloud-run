@@ -6,12 +6,12 @@ use App\Division;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DivisionsExport;
 use App\Exports\PlayersExport;
+use App\Exports\TimerExport;
 use App\Imports\DivisionsImport;
 use App\Imports\PlayersImport;
 use App\Tournament;
 use Illuminate\Http\Request;
-
-
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class ImportExcelController extends Controller
 {
@@ -61,6 +61,42 @@ class ImportExcelController extends Controller
          return  Excel::download(new PlayersExport($division), 'players.xlsx');
         // return back();
     }
+
+    
+    public function exportTimer(Request $request) 
+    {  
+        
+         return  Excel::download(new TimerExport($request), 'timer.xlsx');
+        // return back();
+    }
+    
+    public function test(Request $request) 
+    {  
+        
+        Excel::create('Report2016', function($excel) {
+
+            // Set the title
+            $excel->setTitle('My awesome report 2016');
+
+            // Chain the setters
+            $excel->setCreator('Me')->setCompany('Our Code World');
+
+            $excel->setDescription('A demonstration to change the file properties');
+
+            $data = [12,"Hey",123,4234,5632435,"Nope",345,345,345,345];
+
+            $excel->sheet('Sheet 1', function ($sheet) use ($data) {
+                $sheet->setOrientation('landscape');
+                $sheet->fromArray($data, NULL, 'A3');
+            });
+
+        })->download('xlsx');
+    }
+    
+
+
+
+
 
     
    

@@ -13,7 +13,7 @@ class Division extends Model
      * @var array
      */
     protected $fillable = [
-        'code' ,'name', 'description', 'tour_id','img','create_date','create_by'
+        'code' ,'name','color', 'description', 'tour_id','img','create_date','create_by'
     ];
 
 

@@ -24,6 +24,24 @@
                     </div>
          
                     </div>
+
+                    <div class="row">
+                    <div class="col ml-auto">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Color</label>
+                        <select class="form-control selectpicker show-tick"      data-live-search="true" id="exampleFormControlSelect2" id="color"  name="color">
+                        @for($x = 0 ; $x < 20; $x++)
+                                    
+                                    <option value="{{$x}}" data-content="<span class='badge badge-success'  style='background-color:{{$colors[$x]}}'>Color</span>"></option>
+
+                         @endfor
+                        </select>
+                    </div>
+                    </div>
+                  
+                    </div>
+
+
                     <div class="row">
                     <div class="col ml-auto">
 

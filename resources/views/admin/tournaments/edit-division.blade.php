@@ -15,6 +15,7 @@
                         <label for="name"> Name</label>
                         <input type="text" name="name" class="form-control"id="divison_name">
                     </div>
+            
                     <div class="row">
                     <div class="col ml-auto">
            
@@ -23,7 +24,32 @@
                         <textarea name="description" class="form-control" id="divison_description" ></textarea>
                     </div>
                     </div>
-         
+                  
+                    </div>
+                    <div class="row">
+                    <div class="col ml-auto">
+                        
+                        <div class="form-group">
+                            <label for="code">Code</label>
+                            <input type="text" name="code" class="form-control"id="divison_code">
+                            
+                        </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Color</label>
+                        <select class="form-control selectpicker show-tick"      data-live-search="true" id="exampleFormControlSelect2" id="color"  name="color">
+                        @for($x = 0 ; $x < 20; $x++)
+                                    
+                                    <option value="{{$x}}" data-content="<span class='badge badge-success'  style='background-color:{{$colors[$x]}}'>Color</span>"></option>
+
+                         @endfor
+                        </select>
+                    </div>
+
+                  
                     </div>
                     <div class="row">
                     <div class="col ml-auto">

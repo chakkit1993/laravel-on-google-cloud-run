@@ -7,7 +7,7 @@
 <div class="col-md-12 ">
     <div class="card">
                         <div class="card-header">
-                            <span class="h4">Division List {{$divisions->count()}}</span>
+                            <span class="h4">ประเภทการแข่งขัน จำนวน {{$divisions->count()}} รายการ</span>
                             <button class="btn btn-success float-right" data-toggle="modal" data-target="#addDivisionModal">
                                 <i class="fa fa-plus"><b> Add New</b></i>
                             </button>
@@ -45,12 +45,15 @@
                                 </thead>
                                 <tbody>
                                 @php($sl = 1)
-                                        <?php $n = 0; ?>
+                                        <?php
+                                
+                                        $n = 0; ?>
+                                       
                                         @foreach($divisions as $division)
                                                 <tr>
                                                 <?php $n++; ?>
                                                     <td>{{$n}}</td>
-                                                    <td>{{$division->code}}</td> 
+                                                    <td> <span class='badge badge-success'  style='background-color:{{$colors[$division->color]}}'> {{$division->code}}</span> </td> 
                                                     <td>{{$division->name}}</td>
                                                     <td>{{$division->players()->count()}}</td>
                                                     <td>
@@ -58,7 +61,7 @@
                                                         <i class="fas fa-file-download"><b> Download</b></i>
                                                         </a>
                                                         <a class="btn btn-primary" href="{{route('tournaments.playersByDivision',['tournament'=> $tournament,'division' =>$division])}}"   >
-                                                        <i class="fas fa-file-info"><b> Info</b></i>
+                                                        <i class="fas fa-file-info"><b> S1</b></i>
                                                         </a>
                                                     </td>
                                                     <td>  

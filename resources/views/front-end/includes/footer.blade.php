@@ -12,25 +12,25 @@
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <!-- <h4>Useful Links</h4>
             <ul>
               <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Services</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Terms of service</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
+            </ul> -->
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <!-- <h4>Useful Links</h4>
             <ul>
               <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Services</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Terms of service</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
+            </ul> -->
           </div>
 
           <div class="col-lg-3 col-md-6 footer-contact">
@@ -44,13 +44,11 @@
             </p>
 
             <div class="social-links">
-              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+              <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
             </div>
-
+          
           </div>
 
         </div>

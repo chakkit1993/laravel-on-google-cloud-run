@@ -27,7 +27,9 @@
             <div class="col-sm-4">
             <div class="card" style="width: 18rem;  ">
             <div class="card-header">
-                Featured
+            <a href="{{route('tournaments.setFrontLeaderboard',$tournament->id)}}" class="btn btn-success   float-left">{{$tournament->active}} <i class="fas fa-info-circle"></i></i></a>
+
+           
                 </div>
                         <img src="/images/tournament/1.jpg" class="card-img-top" alt="..."    style="width: 100%;  height: 10vw;    object-fit: scale-down; "  >
                         <div class="card-body">

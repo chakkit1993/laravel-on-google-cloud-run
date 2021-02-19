@@ -26,6 +26,20 @@ class HomeController extends Controller
     {
         return view('home')
         ->with('tournaments', Tournament::all()->sortByDesc('id'));
-      
     }
+
+
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function leaderboard()
+    {
+        return view('front-end.home.leaderboard');
+    }
+    
+
+
 }

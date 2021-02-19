@@ -15,6 +15,7 @@ class CreateTournamentsTable extends Migration
     {
         Schema::create('tournaments', function (Blueprint $table) {
             $table->id();
+            $table->boolean('active')->default(false);
             $table->string('code');
             $table->string('name');
             $table->string('address');

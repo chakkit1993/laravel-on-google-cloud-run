@@ -22,6 +22,9 @@ class Player extends Model
         return $this->belongsToMany(Division::class , 'player_division' , 'player_id' , 'division_id');
     }
 
+   
+
+
     public function hasDivision($divisionId)
     {
         return in_array($divisionId,$this->divisions->pluck('id')->ToArray());
