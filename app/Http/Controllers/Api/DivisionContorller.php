@@ -19,4 +19,17 @@ class DivisionContorller extends Controller
         
         return response()->json($divisions);
     }
+
+      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($code)
+    {
+        //dd($code);
+        $division = Division::all()->where('code', $code);
+        return response()->json($division);
+    }
 }

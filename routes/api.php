@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LedaerboardApiController;
 use App\Http\Controllers\Api\PlayersApiController;
+use App\Http\Controllers\Api\TournamentContorller;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
- Route::get('/divisions','Api\DivisionContorller@index')->name('admin.divi');
+ Route::get('/divisions','Api\DivisionContorller@index')->name('api.divisons');
+ Route::get('/divisions/{code}','Api\DivisionContorller@show')->name('api.divisons.find');
  Route::get('/players','PlayersController@getPlayers')->name('admin.playersJSON');
+
+ Route::get('/tournaments','Api\TournamentController@index')->name('api.tournaments');
+ Route::get('/tournaments/{code}','Api\TournamentController@show')->name('api.tournaments.find');
+
 
  Route::get('admin/leaderboards',[LedaerboardApiController::class,'index'])->name('api.leaderboards');
  Route::get('admin/frontleaderboards',[LedaerboardApiController::class,'getFrontLeaderboardJSON'])->name('api.front-leaderboards');

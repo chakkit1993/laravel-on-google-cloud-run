@@ -31,6 +31,7 @@
   <link href="css/style.css" rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/blink-text.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/badge-top-right.css') }}" rel="stylesheet">
 
  
   <!-- =======================================================

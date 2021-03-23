@@ -10,6 +10,10 @@
                         <span class="badge badge-danger blink_badge ">Live</span>
                         
                         <span class="h4 blink_me "  id="FrontDate" ></span>
+
+                        <span class="text float-right"> (update every 30 second)</span>
+
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -19,14 +23,14 @@
                             <table id="tabelLeaderboardFront" class=" table  table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <!-- <th>No.</th> -->
                                     <th>Name</th>
                                     <!-- <th>Stage</th> -->
                                     <th>Tag RFID</th>
                                     <th>Time Start</th>
                                     <th>Time Finish</th>
                                     <th>Time Result</th>
-                                    <th>PC1</th>
+                                    <!-- <th>PC1</th> -->
                                     <!-- <th> Action</th> -->
                                 </tr>
                                 </thead>

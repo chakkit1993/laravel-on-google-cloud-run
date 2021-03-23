@@ -147,7 +147,7 @@ class LedaerboardApiController extends Controller
 
     // preparing an array
         $s = 'S1';
-        $tempData =  Leaderboard::all()->where('stage', 'S1' )->sortByDesc('tResult');
+        $tempData =  Leaderboard::all()->where('stage', 'S1' )->sortByDesc('t2');
         $data = new Collection();
         $tournament=  Tournament::where('active', 1)->first();
       
@@ -161,24 +161,28 @@ class LedaerboardApiController extends Controller
            // $player =  Player::all()->where('id' ,$_data->player_id)->first();
            // $data[] = $_data;
             if($player != null){
-                $view =[
-                    'no' =>$n++,
-                    'id' =>$_data['id'],
-                    'player_id' => $player['id'],
-                    'name' => $player['name'],
-                    'rfid' => $player['tag_id'],
-                    'stage'=>  $_data['stage'],
-                    't1'=>  $_data['t1'],
-                    't2'=>  $_data['t2'],
-                    'tResult'=>  $_data['tResult'],
-                    'pc'=>  [ 'pc1' => $_data['pc1'],
-                            'pc2' => $_data['pc2'],
-                            'pc3' => $_data['pc3'],
-                            'pc4' => $_data['pc4'],
-                            'pc5' => $_data['pc5'],
-                        ],
-                ];
-                $data[] = $view ;
+                if($_data['t1'] != "00:00:00" &&  $_data['t2'] != "00:00:00"  && $_data['tResult'] != "00:00:00"){
+                    $view =[
+                        'no' =>$n++,
+                        'id' =>$_data['id'],
+                        'player_id' => $player['id'],
+                        'name' => $player['name'],
+                        'rfid' => $player['tag_id'],
+                        'stage'=>  $_data['stage'],
+                        't1'=>  $_data['t1'],
+                        't2'=>  $_data['t2'],
+                        'tResult'=>  $_data['tResult'],
+                        'pc'=>  [ 'pc1' => $_data['pc1'],
+                                'pc2' => $_data['pc2'],
+                                'pc3' => $_data['pc3'],
+                                'pc4' => $_data['pc4'],
+                                'pc5' => $_data['pc5'],
+                            ],
+                    ];
+                    $data[] = $view ;
+                }
+              
+               
             }
          
 

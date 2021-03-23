@@ -110,10 +110,10 @@
     //console.log(currentURL);
     //console.log(currentURL);
     var table = $('#tabelLeaderboardFront').DataTable({
-      //  "processing": true,
-        // "serverSide": true,
+    //   processing: true,
+    //  serverSide: true,
      responsive: true,
-     lengthChange : false,
+     lengthChange : true,
       ajax: {
           type: 'GET',
           url: "/api/admin/frontleaderboards",
@@ -121,65 +121,121 @@
 
      },
       columns: [
-          { data: "no" },
+          // { data: "no" },
           { data: "name" },
           // { data: "stage" },
           { data: "rfid" },
           { data: "t1" },
           { data: "t2" },
           { data: "tResult" },
-          { data: "pc" },
+          // { data: "pc" },
           // {
           //   defaultContent: '<a  style="color:white" class="edit btn btn-success  float-left" value="edit"/>  <i class="fa fa-edit"></i> </a>'
 
           // },
-          
+         
        
       ],
-      columnDefs: [{
-        targets: 6,
-        render: function(pc, type, row, meta) {
+  
+      columnDefs: [
+        {
+          targets: 1,
+          // width: "100px",
+          // render: function(tResult, type, row, meta) {
+          //   str  ='<div  class="position-relative"> '+ tResult +  '<span class="badge badge_top_right  bg-danger">new</span>  </div>'  
+          //   return str;
+          // }
+        },
+        {
+          targets: 2,
+          // width: "100px",
+          // render: function(tResult, type, row, meta) {
+          //   str  ='<div  class="position-relative"> '+ tResult +  '<span class="badge badge_top_right  bg-danger">new</span>  </div>'  
+          //   return str;
+          // }
+        },
+        {
+          targets: 3,
+          // width: "100px",
+          render: function(t2, type, row, meta) {
 
-          //console.log(pc);
+            var d = new Date();
+            var n = d.getTime();
+            
+            currentTime = d.toTimeString().split(' ')[0];
+          
+             //create date format          
+             var timeStart = new Date("01/01/2007 " + currentTime);
+             var timeStamp = new Date("01/01/2007 " + t2);
+         
+             var timeDiff = timeStart - timeStamp  ; 
+             str = "";
 
-          if(pc['pc1']){
-            status =  '<span class="badge badge-success">PC1</span>'
-          }else{
-            status =  '<span class="badge badge-danger">PC1</span>'
+             $('#FrontDate').text('  ' + currentTime  );
+
+
+            if( timeDiff < 60000 * 5){
+              str  ='<div  class="position-relative"><b> '+t2+ '</b><span class="badge badge_top_right  bg-danger">new</span>  </div>' ; 
+            }else{
+              str  ='<div  class="position-relative"> '+ t2  +'</div>'  ;
+            }
+           
+            return str;
           }
+        },
+        {
+          targets: 4,
+          // width: "100px",
+          // render: function(tResult, type, row, meta) {
+          //   str  ='<div  class="position-relative"> '+ tResult +  '<span class="badge badge_top_right  bg-danger">new</span>  </div>'  
+          //   return str;
+          // }
+        },
+      //   {
+      //   targets: 6,
+      //   render: function(pc, type, row, meta) {
 
-          if(pc['pc2']){
-            status +=  '<span class="badge badge-success">PC2</span>'
-          }else{
-            status +=  '<span class="badge badge-danger">PC2</span>' 
-          }
+      //     status ="";
+
+      //     if(pc['pc1']){
+      //       status =  '<span class="badge badge-success">PC1</span>'
+      //     }else{
+      //       status =  '<span class="badge badge-danger">PC1</span>'
+      //     }
+
+      //     if(pc['pc2']){
+      //       status +=  '<span class="badge badge-success">PC2</span>'
+      //     }else{
+      //       status +=  '<span class="badge badge-danger">PC2</span>' 
+      //     }
         
 
-          if(pc['pc3']){
-            status +=  '<span class="badge badge-success">PC3</span>'
-          }else{
-            status +=  '<span class="badge badge-danger">PC3</span>' 
-          }
+      //     if(pc['pc3']){
+      //       status +=  '<span class="badge badge-success">PC3</span>'
+      //     }else{
+      //       status +=  '<span class="badge badge-danger">PC3</span>' 
+      //     }
         
 
-          if(pc['pc4']){
-            status +=  '<span class="badge badge-success">PC4</span>'
-          }else{
-            status +=  '<span class="badge badge-danger">PC4</span>' 
-          }
+      //     if(pc['pc4']){
+      //       status +=  '<span class="badge badge-success">PC4</span>'
+      //     }else{
+      //       status +=  '<span class="badge badge-danger">PC4</span>' 
+      //     }
         
 
-          if(pc['pc5']){
-            status +=  '<span class="badge badge-success">PC5</span>'
-          }else{
-            status +=  '<span class="badge badge-danger">PC5</span>' 
-          }
+      //     if(pc['pc5']){
+      //       status +=  '<span class="badge badge-success">PC5</span>'
+      //     }else{
+      //       status +=  '<span class="badge badge-danger">PC5</span>' 
+      //     }
         
         
          
-          return status;
-        }
-      }]
+      //     return status;
+      //   }
+      // }
+    ]
 
       
 
@@ -202,13 +258,27 @@
 
    setInterval(function () {
     
+   
     var d = new Date();
     var n = d.getTime();
-    datetext = d.toTimeString().split(' ')[0];
-    $('#FrontDate').text('  ' + datetext  );
-    console.log('tabelLeaderboardFront update '+datetext   + n);
+    
+    currentTime = d.toTimeString().split(' ')[0];
+    // $('#FrontDate').text('  ' + currentTime  );
+
+
+
+     //create date format          
+     var timeStart = new Date("01/01/2007 " + currentTime);
+     var timeEnd = new Date("01/01/2007 " +'13:00:00');
+ 
+     var hourDiff = timeEnd - timeStart; 
+
+
+    console.log('tabelLeaderboardFront update '+hourDiff + "    "+ currentTime );
+
+    //Reload datatable 
     table.ajax.reload();
-    }, 60000);
+    }, 30000);
 
   
 

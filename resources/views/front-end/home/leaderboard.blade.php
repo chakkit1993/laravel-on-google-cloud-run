@@ -17,7 +17,15 @@
   </section>
 
   <main id="main">
+  <div class="row">
+  <div class="col-lg-6">
   @include('front-end.home.leaderboard-table') 
+</div>
+  <div class="col-lg-6">
+  @include('front-end.home.leaderboard-table') 
+</div>
+  </div>
+  
 
 </main>
 <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>

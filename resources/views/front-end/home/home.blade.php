@@ -110,7 +110,11 @@
      Leaderboard Section
     ============================-->
   <section id="leaderboard" class="section-with-bg wow fadeInUp">
-    @include('front-end.home.leaderboard-table')
+  <div class="row">
+  <div class="col-lg-12 col-md-12">
+  @include('front-end.home.leaderboard-table') 
+</div>
+  </div>
 
 
   </section>
@@ -128,7 +132,7 @@
         <div class="col-lg-8 col-md-6 ">
 
         
-        <iframe src='{{$facebook}}' width="720" height="480" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+        <iframe src='{{$facebook}}' width="100%" height="480" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
   
         </div>
         <div class="col-lg-2 col-md-6"></div>
