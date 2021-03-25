@@ -30,12 +30,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  Route::get('/tournaments','Api\TournamentController@index')->name('api.tournaments');
  Route::get('/tournaments/{code}','Api\TournamentController@show')->name('api.tournaments.find');
 
+ Route::put('/leaderboards/{code}',[LedaerboardApiController::class,'update'])->name('api.update.leaderboards');
+
+
+
 
  Route::get('admin/leaderboards',[LedaerboardApiController::class,'index'])->name('api.leaderboards');
  Route::get('admin/frontleaderboards',[LedaerboardApiController::class,'getFrontLeaderboardJSON'])->name('api.front-leaderboards');
 
 
-Route::put('admin/leaderboards/update/{id}',[LedaerboardApiController::class,'updateAll'])->name('api.Updateleaderboards');
+Route::put('admin/leaderboards/update/{id}',[LedaerboardApiController::class,'updateAll'])->name('api.UpdateAllleaderboards');
 
 Route::get('admin/{tournament}/leaderboard','LeaderboardsController@getLeaderboardJSON');
 

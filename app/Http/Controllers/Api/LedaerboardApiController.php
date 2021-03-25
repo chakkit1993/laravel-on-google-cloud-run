@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Leaderboard;
 use App\Player;
 use App\Tournament;
+use Illuminate\Auth\Events\Failed;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -34,6 +35,109 @@ class LedaerboardApiController extends Controller
         // Session()->flash('success','แก้ไขข้อมูลสำเร็จ');
        
         // return redirect(route('tournaments.show' , $tour_id));
+    }
+
+
+       /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $code )
+    {
+        //$tournament = Tournament::all()->where('code', $code);
+
+
+        // {
+        //     "tournament": "TM05",
+        //     "stage": "S1",
+        //     "point": "PC0",
+        //     "rfid": 1,
+        //     "time": "12:40:40"
+        //   }
+
+        //     dd($request->point);
+        // $data = $request->state;
+        // return response()->json(  $data);
+
+        $result = false;
+
+
+        $leaderboard  =  Leaderboard::where('stage', $request->stage)->first();
+      
+        $player = $leaderboard->findPlayerRFID($request->tournament, $request->rfid);
+
+        
+
+        if($player == null){
+            // not found plyer in tournamnet
+            $result = false;
+            
+        }
+        else{
+            $result = true;
+            $leader = $leaderboard->where('player_id',  $player->id)->first();
+            $point =  $request->point;
+            switch ($point) {
+                case 'PC0':
+                    $leader['t1']  =  $request->time;
+                    $leader['time_pc0']  =   $request->time;
+                    $leader['pc0'] = 1;
+                  break;
+                case 'PC1':
+                    $leader['time_pc1']  =  $request->time;
+                    $leader['pc1'] = 1;
+                  break;
+                case 'PC2':
+                    $leader['time_pc2']  =   $request->time;
+                    $leader['pc2'] = 1;
+                    break;
+                case 'PC3':
+                    $leader['time_pc3']  =   $request->time;
+                    $leader['pc3'] = 1;
+                    break;
+                case 'PC4':
+                    $leader['time_pc4']  =   $request->time;
+                    $leader['pc4'] = 1;
+                    break;
+                case 'PC5':
+                    $leader['time_pc5']  =   $request->time;
+                    $leader['pc5'] = 1;
+                    break;
+                case 'PC6':
+                    $leader['t2']  =   $request->time;
+                    $leader['time_pc6']  =  $request->time;
+                    $leader['pc6'] = 1;
+                    break;
+                default:
+                    $leader['pc1'] = 0;
+              }
+
+            $leader->save();
+            }
+            $_result = "failed";
+        if($result == true){
+            $_result = "success";
+        }
+
+        $json_data = [
+            'tournament' => $request->tournament,
+            'rfid' => $request->rfid,
+            'stage'=> $request->stage,
+            'point'=> $request->point,
+            'time'=> $request->time,
+            'result' =>  $_result,
+        ];
+        //response()->json(['error' => 'invalid'], 401);
+        return response()->json( $json_data, 200);
+
+
+
+
+
+        //return response()->json($tournament);
     }
 
           /**
